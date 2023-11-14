@@ -1,6 +1,17 @@
+
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It is a web application for managing and displaying information about a Sunday adult soccer team. The application provides details about the team, upcoming games, and contact information.
+
+## Project Setup
+
+Before running any of the available scripts, ensure you have installed all the necessary dependencies:
+
+```
+npm install
+```
+
+This will install all the required packages and dependencies needed to run the project.
 
 ## Available Scripts
 
