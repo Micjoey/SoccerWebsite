@@ -1,0 +1,27 @@
+.header {
+    background-color: #004d99;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+  
+    .title {
+      margin: 0;
+      font-size: 2em;
+    }
+  
+    .navigation {
+      margin-top: 10px;
+  
+      a {
+        color: white;
+        margin: 0 10px;
+        text-decoration: none;
+        font-weight: bold;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  
