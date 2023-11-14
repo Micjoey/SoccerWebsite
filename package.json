@@ -29,8 +29,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "create-component": "./create-component.sh"
+    "create-component": "./create-component.sh",
+    "prepare": "husky install"
   },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  },  
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -52,6 +56,8 @@
   "devDependencies": {
     "concurrently": "^8.2.2",
     "eslint": "^8.53.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
     "sass": "^1.69.5"
   }
 }
