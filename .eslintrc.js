@@ -17,9 +17,10 @@ module.exports = {
   rules: {
     // Example ESLint rules
     "no-console": "warn", // Enforce warning for console.log, console.error, etc.
-    "indent": ["error", 2], // Enforce 2-space indentation
-    '@typescript-eslint/no-unused-vars': 'warn',
-    'prettier/prettier': 'warn',
+    indent: ["error", 2], // Enforce 2-space indentation
+    "@typescript-eslint/no-unused-vars": "warn",
+    "prettier/prettier": "warn",
+    "no-undef": "warn",
   },
   settings: {
     react: {

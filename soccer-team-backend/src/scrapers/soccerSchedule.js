@@ -4,7 +4,7 @@ import cheerio from "cheerio";
 async function scrapeData() {
   try {
     const { data } = await axios.get(
-      "https://www.gssl.org/schedule/479844/sun-open-d2"
+      "https://www.gssl.org/schedule/479844/sun-open-d2",
     );
     const $ = cheerio.load(data);
     const scrapedData = [];
@@ -23,11 +23,16 @@ async function scrapeData() {
       };
       scrapedData.push(game);
     });
-    
-    return scrapedData;
+
+    // Create a JSON object with the scraped data
+    const jsonData = {
+      schedule: scrapedData,
+    };
+
+    return jsonData;
   } catch (error) {
     console.error("Error scraping data:", error);
-    return [];
+    return { error: "Failed to scrape data" };
   }
 }
 

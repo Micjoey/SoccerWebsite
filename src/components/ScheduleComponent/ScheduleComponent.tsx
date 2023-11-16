@@ -16,12 +16,13 @@ function ScheduleComponent() {
   useEffect(() => {
     async function fetchSchedule() {
       try {
-        const response = await fetch("http://localhost:3001/api/schedule");
-        console.log("hit·this", response);
+        const response = await fetch("http://localhost:3001/schedule");
+
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         const data: Game[] = await response.json();
+        console.log(data);
         setSchedule(data);
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);

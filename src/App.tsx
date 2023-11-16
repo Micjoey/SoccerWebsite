@@ -13,8 +13,6 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/schedule" element={<ScheduleComponent />} />{" "}
-          {/* Add the schedule route */}
-          {/* Define other routes as needed */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
