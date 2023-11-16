@@ -1,11 +1,18 @@
-// src/app.js
-const express = require('express');
-const scheduleRoutes = require('./routes/scheduleRoutes');
+import express from "express";
+import cors from "cors";
+import scrapeData from "./scrapers/soccerSchedule"; // Adjust the import path as needed
 const app = express();
 
-app.use(express.json());
+app.use(cors()); // Enable CORS for all routes
 
-// Use the scheduleRoutes for any '/api/schedule' endpoint
-app.use('/api/schedule', scheduleRoutes);
+// Setup API endpoint for schedule
+app.get("/schedule", async (req, res) => {
+  try {
+    const data = await scrapeData();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: "Error retrieving schedule" });
+  }
+});
 
-module.exports = app;
+export default app;
