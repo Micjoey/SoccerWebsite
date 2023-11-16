@@ -1,27 +1,46 @@
 import axios from "axios";
 import cheerio from "cheerio";
 
-async function scrapeData() {
+export default async function scrapeSchedule() {
+  const url = "https://www.gssl.org/schedule/479844/sun-open-d2";
+  const selector =
+    "#ctl00_ContentPlaceHolder1_StandingsResultsControl_ScheduleGrid_ctl00 tr.rgRow";
+
+  const dataExtractor = ($row) => {
+    const $tds = $row.find("td");
+
+    if ($tds.length === 0) {
+      return null; // Skip rows with no data
+    }
+
+    const $locationCell = $tds.eq(4);
+    const $locationAnchor = $locationCell.find("a");
+    const locationText = $locationAnchor.text().trim();
+    const locationHref = $locationAnchor.attr("href");
+
+    return {
+      date: $tds.eq(0).text().trim(),
+      time: $tds.eq(1).text().trim(),
+      homeTeam: $tds.eq(2).text().trim(),
+      awayTeam: $tds.eq(3).text().trim(),
+      location: {
+        text: locationText,
+        href: locationHref,
+      },
+      // Add more columns as necessary based on the actual table structure
+    };
+  };
+
   try {
-    const { data } = await axios.get(
-      "https://www.gssl.org/schedule/479844/sun-open-d2",
-    );
+    const { data } = await axios.get(url);
     const $ = cheerio.load(data);
     const scrapedData = [];
 
-    // Assuming the schedule is within a table and each game is a row in the table
-    $("table tbody tr").each((index, element) => {
-      // Extract columns from each row
-      const tds = $(element).find("td");
-      const game = {
-        date: $(tds[0]).text(),
-        time: $(tds[1]).text(),
-        homeTeam: $(tds[2]).text(),
-        awayTeam: $(tds[3]).text(),
-        location: $(tds[4]).text(),
-        // Add more columns as necessary based on the actual table structure
-      };
-      scrapedData.push(game);
+    $(selector).each((index, element) => {
+      const rowData = dataExtractor($(element));
+      if (rowData) {
+        scrapedData.push(rowData);
+      }
     });
 
     // Create a JSON object with the scraped data
@@ -31,9 +50,7 @@ async function scrapeData() {
 
     return jsonData;
   } catch (error) {
-    console.error("Error scraping data:", error);
-    return { error: "Failed to scrape data" };
+    console.error("Error scraping schedule:", error);
+    return { error: "Failed to scrape schedule" };
   }
 }
-
-export default scrapeData;

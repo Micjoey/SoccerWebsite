@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^1.6.1",
     "cheerio": "^1.0.0-rc.12",
+    "cheerio-eq": "^1.0.1",
     "cors": "^2.8.5",
     "express": "^4.18.2"
   }

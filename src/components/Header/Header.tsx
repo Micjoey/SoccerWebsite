@@ -8,6 +8,7 @@ const Header: React.FC = () => {
       <nav className="navigation">
         <a href="#about">About Us</a>
         <a href="#games">Games</a>
+        <a href="/schedule">Schedule</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>

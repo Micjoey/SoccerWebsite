@@ -1,11 +1,12 @@
 import express from "express";
-import scrapeData from "../scrapers/soccerSchedule.js"; // Make sure this path is correct
+import scrapeSchedule from "../scrapers/soccerSchedule.js";
+
 const router = express.Router();
 
 // Endpoint to get the soccer schedule
 router.get("/schedule", async (req, res) => {
   try {
-    const data = await scrapeData();
+    const data = await scrapeSchedule();
     res.json(data);
   } catch (error) {
     console.error(error);
