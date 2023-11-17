@@ -6,8 +6,6 @@ const Header: React.FC = () => {
     <header className="header">
       <h1 className="title">Our Soccer Team</h1>
       <nav className="navigation">
-        <a href="#about">About Us</a>
-        <a href="#games">Games</a>
         <a href="/schedule">Schedule</a>
         <a href="#contact">Contact</a>
       </nav>
