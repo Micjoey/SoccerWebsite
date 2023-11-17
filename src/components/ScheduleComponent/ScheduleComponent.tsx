@@ -51,7 +51,7 @@ function ScheduleComponent() {
 
   return (
     <div>
-      <h1>Game Schedule</h1>
+      <h2>Game Schedule</h2>
       <table>
         <thead>
           <tr>
