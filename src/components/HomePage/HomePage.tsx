@@ -13,10 +13,7 @@ const HomePage: React.FC = () => {
             This website is designed to help team managers efficiently manage
             team availability and provide easy access to the team schedule.
           </p>
-          <a
-            href="/schedule" // Replace with the actual link to the schedule page
-            className="btn btn-primary mt-3"
-          >
+          <a href="/schedule" className="btn btn-primary mt-3">
             View Schedule
           </a>
           {/* Add more links or buttons to other sections of the website */}

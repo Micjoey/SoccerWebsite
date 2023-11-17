@@ -6,7 +6,7 @@ import ContactLink from "./Contact";
 const Header: React.FC = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg" className="header">
-      <Navbar.Brand href="/">Our Soccer Team</Navbar.Brand>
+      <Navbar.Brand href="/">GoalNetServer</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
