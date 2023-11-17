@@ -7,7 +7,7 @@ export default async function scrapeData(url, selector, dataExtractor) {
     const $ = cheerio.load(data);
     const scrapedData = [];
 
-    $(selector).each((index, element) => {
+    $(selector).each((_, element) => {
       const rowData = dataExtractor($(element));
       if (rowData) {
         scrapedData.push(rowData);

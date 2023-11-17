@@ -21,6 +21,8 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "warn",
     "prettier/prettier": "warn",
     "no-undef": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
   },
   settings: {
     react: {
