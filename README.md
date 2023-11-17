@@ -55,3 +55,40 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Suggested Development Order
+
+To efficiently set up the frontend for your Sunday adult soccer team website, consider following these steps in the following order:
+
+1. **Home Page**
+   - [ ] Create the Home Page component.
+   - [ ] Add a welcome message, team name, logo, and a brief introduction.
+   - [ ] Implement links or buttons to other sections of the website.
+
+2. **Game Schedule Page**
+   - [ ] Develop the Game Schedule Page component.
+   - [ ] Display a list of upcoming games with details (date, time, opponent, location).
+   - [ ] Implement filtering and searching for specific games.
+   - [ ] Add the ability to click on a game to view more details.
+
+3. **Player Availability Page**
+   - [ ] Create the Player Availability Page component.
+   - [ ] Show a list of games and allow players to mark their availability.
+   - [ ] Include a submit button to save availability choices.
+   - [ ] Provide feedback to confirm that choices are recorded.
+
+4. **Admin Panel (Captain/Administrator)**
+   - [ ] Develop a separate Admin Panel section.
+   - [ ] Implement user authentication to restrict access.
+   - [ ] Include features for managing player rosters, game schedules, reminders, and admin tasks.
+
+5. **Player Profile Page**
+   - [ ] Create individual player profiles.
+   - [ ] Allow team members to add/update personal information, contact details, and preferred positions.
+   - [ ] Enable players to view and edit their profiles.
+
+6. **Additional Features Pages (Optional)**
+   - [ ] Depending on priorities, consider adding pages for game results, player statistics, discussion forum, news updates, and a mobile app download page.
+
+7. **404 Error Page**
+   - [ ] Include a custom 404 error page to handle invalid URLs or broken links.
