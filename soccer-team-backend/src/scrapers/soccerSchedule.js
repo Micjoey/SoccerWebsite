@@ -1,5 +1,4 @@
-import axios from "axios";
-import cheerio from "cheerio";
+import scrapeData from "./scrapeUtility.js";
 
 export default async function scrapeSchedule() {
   const url = "https://www.gssl.org/schedule/479844/sun-open-d2";
@@ -31,16 +30,7 @@ export default async function scrapeSchedule() {
   };
 
   try {
-    const { data } = await axios.get(url);
-    const $ = cheerio.load(data);
-    const scrapedData = [];
-
-    $(selector).each((index, element) => {
-      const rowData = dataExtractor($(element));
-      if (rowData) {
-        scrapedData.push(rowData);
-      }
-    });
+    const scrapedData = await scrapeData(url, selector, dataExtractor);
 
     // Create a JSON object with the scraped data
     const jsonData = {
