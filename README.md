@@ -66,10 +66,9 @@ To efficiently set up the frontend for your Sunday adult soccer team website, co
    - [ ] Implement links or buttons to other sections of the website.
 
 2. **Game Schedule Page**
-   - [ ] Develop the Game Schedule Page component.
-   - [ ] Display a list of upcoming games with details (date, time, opponent, location).
+   - [x] Develop the Game Schedule Page component.
+   - [x] Display a list of upcoming games with details (date, time, opponent, location).
    - [ ] Implement filtering and searching for specific games.
-   - [ ] Add the ability to click on a game to view more details.
 
 3. **Player Availability Page**
    - [ ] Create the Player Availability Page component.
