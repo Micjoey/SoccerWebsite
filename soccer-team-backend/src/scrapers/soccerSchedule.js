@@ -27,7 +27,6 @@ export default async function scrapeSchedule() {
         text: locationText,
         href: locationHref,
       },
-      // Add more columns as necessary based on the actual table structure
     };
   };
 

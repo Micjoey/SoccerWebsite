@@ -19,7 +19,6 @@ export default async function scrapeRankings() {
       goalDifferential: tds[7].textContent.trim(),
       points: tds[8].textContent.trim(),
       manager: tds[9].textContent.trim(),
-      // Add more columns as necessary based on the actual table structure
     };
   };
 
@@ -32,5 +31,3 @@ export default async function scrapeRankings() {
 
   return jsonData;
 }
-
-module.exports = scrapeRankings;
