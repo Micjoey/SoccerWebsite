@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
+import "./ScheduleComponent.scss";
 
 interface Game {
   date: string;
@@ -56,7 +58,7 @@ function ScheduleComponent() {
   return (
     <div>
       <h1>Game Schedule</h1>
-      <table>
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>Date</th>
@@ -85,7 +87,7 @@ function ScheduleComponent() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 }
