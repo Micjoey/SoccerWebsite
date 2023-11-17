@@ -11,34 +11,38 @@ interface Game {
   };
 }
 
+async function fetchScheduleData(
+  setSchedule: React.Dispatch<React.SetStateAction<Game[]>>,
+  setError: React.Dispatch<React.SetStateAction<string | null>>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+) {
+  try {
+    const scheduleResponse = await fetch("http://localhost:3001/schedule");
+
+    if (!scheduleResponse.ok) {
+      throw new Error("Network scheduleResponse was not ok");
+    }
+
+    const data: { schedule: Game[] } = await scheduleResponse.json();
+    setSchedule(data.schedule);
+    setError(null); // Clear any previous errors
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+    setError(
+      "There was an error fetching the schedule. Please try again later.",
+    );
+  } finally {
+    setLoading(false);
+  }
+}
+
 function ScheduleComponent() {
   const [schedule, setSchedule] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchSchedule() {
-      try {
-        const scheduleResponse = await fetch("http://localhost:3001/schedule");
-
-        if (!scheduleResponse.ok) {
-          throw new Error("Network scheduleResponse was not ok");
-        }
-
-        const data: { schedule: Game[] } = await scheduleResponse.json();
-        setSchedule(data.schedule);
-        setError(null); // Clear any previous errors
-      } catch (error) {
-        console.error("There was a problem with the fetch operation:", error);
-        setError(
-          "There was an error fetching the schedule. Please try again later.",
-        );
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchSchedule();
+    fetchScheduleData(setSchedule, setError, setLoading);
   }, []);
 
   if (loading) {

@@ -1,7 +1,6 @@
 ## Code Review Checklist
 
 **Reviewer**: [Your Name]
-**Pull Request**: [Link to the PR]
 
 ### General
 
