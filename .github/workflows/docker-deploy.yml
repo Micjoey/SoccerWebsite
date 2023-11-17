@@ -1,0 +1,24 @@
+name: Docker Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to AWS ECR
+        run: |
+          aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 552283470846.dkr.ecr.us-west-1.amazonaws.com
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t micjoey/soccerwebapp .
+          docker tag micjoey/soccerwebapp:latest 552283470846.dkr.ecr.us-west-1.amazonaws.com/soccerwebsite:latest
+          docker push 552283470846.dkr.ecr.us-west-1.amazonaws.com/soccerwebsite:latest

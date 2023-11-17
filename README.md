@@ -91,3 +91,35 @@ To efficiently set up the frontend for your Sunday adult soccer team website, co
 
 7. **404 Error Page**
    - [ ] Include a custom 404 error page to handle invalid URLs or broken links.
+
+### Configuring Docker for ECR Authentication
+
+To pull Docker images from Amazon ECR, follow these steps:
+
+1. **Install Docker:**
+
+   Ensure you have Docker installed on your local machine. You can download and install it from [Docker's official website](https://docs.docker.com/get-docker/).
+
+2. **AWS CLI Configuration:**
+
+   Make sure you have the AWS CLI configured on your machine with the appropriate credentials and region. You can configure it by running:
+
+   `aws configure`
+
+   Follow the prompts to enter your AWS access key ID, secret access key, default region, and output format.
+
+3. **Authenticate Docker with ECR:**
+
+   To authenticate Docker with your Amazon ECR registry, run the following command:
+
+   `aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 552283470846.dkr.ecr.us-west-1.amazonaws.com`
+
+   Replace `us-west-1` with your actual AWS region if it's different.
+
+4. **Pull Docker Image:**
+
+   After successfully authenticating Docker with ECR, you can pull the Docker image as follows:
+
+   `docker pull 552283470846.dkr.ecr.us-west-1.amazonaws.com/soccerwebsite`
+
+   This will download the Docker image for your project.
