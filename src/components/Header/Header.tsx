@@ -1,15 +1,19 @@
 import React from "react";
 import "./Header.scss";
+import { Navbar, Nav } from "react-bootstrap";
 
 const Header: React.FC = () => {
   return (
-    <header className="header">
-      <h1 className="title">Our Soccer Team</h1>
-      <nav className="navigation">
-        <a href="/schedule">Schedule</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
+    <Navbar bg="dark" variant="dark" expand="lg" className="header">
+      <Navbar.Brand href="#home">Our Soccer Team</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="/schedule">Schedule</Nav.Link>
+          <Nav.Link href="#contact">Contact</Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 
