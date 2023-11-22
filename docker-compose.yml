@@ -1,15 +1,15 @@
 version: '3.8'
 services:
-  app:
+  soccerwebapp:
     image: micjoey/soccerwebapp
     ports:
       - "3000:3000"
     depends_on:
       - soccerwebapp_db
-    secrets:
-      - "Admin"  
-      - "SoccerWebsiteDb"
-      - "SoccerWebsitePwd"
+    environment:
+      - ADMIN_SECRET=${ADMIN_SECRET}
+      - DB_SECRET=${DB_SECRET}
+      - PWD_SECRET=${PWD_SECRET}
 
   soccerwebapp_db:
     build:
@@ -19,18 +19,10 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    secrets:
-      - "Admin"
-      - "SoccerWebsiteDb"
-      - "SoccerWebsitePwd"
-
-secrets:
-  SoccerWebsitePwd:
-    external: true
-  SoccerWebsiteDb:
-    external: true
-  Admin:
-    external: true
+    environment:
+      - ADMIN_SECRET=${ADMIN_SECRET}
+      - DB_SECRET=${DB_SECRET}
+      - PWD_SECRET=${PWD_SECRET}
 
 volumes:
   postgres_data:
