@@ -4,36 +4,32 @@ services:
     image: micjoey/soccerwebapp
     ports:
       - "3000:3000"
-    environment:
-      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
     depends_on:
-      - db
+      - soccerwebapp_db
     secrets:
-      - postgres_password
-      - postgres_db
-      - postgres_user
+      - "Admin"  
+      - "SoccerWebsiteDb"
+      - "SoccerWebsitePwd"
 
-  db:
-    image: postgres:13
-    environment:
-      - POSTGRES_DB_FILE=/run/secrets/SoccerWebsiteDb
-      - POSTGRES_USER_FILE=/run/secrets/Admin
-      - POSTGRES_PASSWORD_FILE=/run/secrets/SoccerWebsitePwd
+  soccerwebapp_db:
+    build:
+      context: ./soccer-team-backend/docker-configs
+      dockerfile: Dockerfile.postgres
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     secrets:
-      - SoccerWebsiteDb
-      - Admin
-      - SoccerWebsitePwd
+      - "Admin"
+      - "SoccerWebsiteDb"
+      - "SoccerWebsitePwd"
 
 secrets:
-  postgres_password:
+  SoccerWebsitePwd:
     external: true
-  postgres_db:
+  SoccerWebsiteDb:
     external: true
-  postgres_user:
+  Admin:
     external: true
 
 volumes:

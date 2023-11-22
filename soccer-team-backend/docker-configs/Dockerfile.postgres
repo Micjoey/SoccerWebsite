@@ -1,0 +1,14 @@
+# Use the official PostgreSQL image as a base
+FROM postgres:13
+
+# Copy the custom entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+
+# Set the custom script to be executable
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Set the custom script as the entrypoint
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+# Default command for PostgreSQL
+CMD ["postgres"]
