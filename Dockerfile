@@ -22,4 +22,4 @@ EXPOSE 3000
 # Define the command to run your app
 # For development, you might use a server like webpack-dev-server. 
 # For production, you'll serve the built static files (e.g., using a node server or nginx)
-CMD ["npm", "start"]
+CMD ["npm", "dev"]
