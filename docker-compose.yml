@@ -1,28 +1,35 @@
 version: '3.8'
+
+secrets:
+  Admin:
+    external: true
+  SoccerWebsiteDb:
+    external: true
+  SoccerWebsitePwd:
+    external: true
+
 services:
   soccerwebapp:
-    image: micjoey/soccerwebapp
+    image: soccerwebapp_container
     ports:
       - "3000:3000"
     depends_on:
       - soccerwebapp_db
-    environment:
-      - ADMIN_SECRET=${ADMIN_SECRET}
-      - DB_SECRET=${DB_SECRET}
-      - PWD_SECRET=${PWD_SECRET}
+    secrets:
+      - Admin
+      - SoccerWebsiteDb
+      - SoccerWebsitePwd
 
   soccerwebapp_db:
-    build:
-      context: ./soccer-team-backend/docker-configs
-      dockerfile: Dockerfile.postgres
+    image: postgres:13
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - soccerwebapp_volume:/var/lib/postgresql/data
     environment:
-      - ADMIN_SECRET=${ADMIN_SECRET}
-      - DB_SECRET=${DB_SECRET}
-      - PWD_SECRET=${PWD_SECRET}
+      POSTGRES_PASSWORD_FILE: /run/secrets/SoccerWebsiteDb
+    secrets:
+      - SoccerWebsiteDb
 
 volumes:
-  postgres_data:
+  soccerwebapp_volume:

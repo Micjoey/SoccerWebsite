@@ -1,22 +1,17 @@
-import fs from "fs";
 import pg from "pg";
 
 // Access the Pool class from the pg module
 const { Pool } = pg;
 
-// These paths should exactly match the secret names in your Docker setup
-const POSTGRES_USER = fs.readFileSync("/run/secrets/Admin", "utf8").trim();
-const POSTGRES_PASSWORD = fs
-  .readFileSync("/run/secrets/SoccerWebsitePwd", "utf8")
-  .trim();
-const POSTGRES_DB = fs
-  .readFileSync("/run/secrets/SoccerWebsiteDb", "utf8")
-  .trim();
+// Access environment variables directly
+const POSTGRES_USER = process.env.POSTGRES_USER;
+const POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD;
+const POSTGRES_DB = process.env.POSTGRES_DB;
 
 export const pool = new Pool({
   user: POSTGRES_USER,
-  host: "soccerwebapp_db",
+  host: "soccerwebapp_db", // Adjust if your DB host is different
   database: POSTGRES_DB,
   password: POSTGRES_PASSWORD,
-  port: 5432,
+  port: 5432, // Adjust if your DB port is different
 });
