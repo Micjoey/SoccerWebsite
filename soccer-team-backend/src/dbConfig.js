@@ -1,5 +1,7 @@
 import { SecretsManager } from "aws-sdk";
-import { Pool } from "pg"; // Make sure to import the 'Pool' class from 'pg'
+import pkg from "pg"; // Import the 'pg' package using default import
+
+const { Pool } = pkg; // Destructure the Pool class from 'pg'
 
 const secretsManager = new SecretsManager();
 
