@@ -1,9 +1,11 @@
-import { SecretsManager } from "aws-sdk";
-import pkg from "pg"; // Import the 'pg' package using default import
+import AWS from "aws-sdk";
+import pgPromise from "pg-promise";
 
-const { Pool } = pkg; // Destructure the Pool class from 'pg'
+// Set the AWS region here
+AWS.config.update({ region: "us-west-1" });
 
-const secretsManager = new SecretsManager();
+const secretsManager = new AWS.SecretsManager();
+const pgp = pgPromise();
 
 // Helper function to fetch secrets
 const getSecret = async (secretName) => {
@@ -31,15 +33,15 @@ const fetchSecrets = async () => {
   if (POSTGRES_USER) {
     // Use the secrets in your application
     const { username, password, dbname } = POSTGRES_USER;
-    const pool = new Pool({
+    const db = pgp({
       user: username,
       host: "soccerwebapp_db", // Adjust if your DB host is different
       database: dbname,
       password: password,
       port: 5432, // Adjust if your DB port is different
     });
-    return pool;
+    return db;
   }
 };
 
-export const pool = fetchSecrets();
+export default fetchSecrets; // Export the result of fetchSecrets as default

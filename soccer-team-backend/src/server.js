@@ -1,17 +1,18 @@
-import { pool } from "./dbConfig.js";
+import fetchSecrets from "./dbConfig.js";
 import app from "./app.js"; // Import the configured express app
 
 const port = process.env.PORT || 3001; // Use environment port or default to 3001
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Server running on http://localhost:${port}`);
 
-  pool.query("SELECT version()", (err, res) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log(res.rows[0]);
-    }
-    pool.end();
-  });
+  const db = await fetchSecrets(); // Call fetchSecrets to get the database connection
+
+  db.query("SELECT version()")
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
