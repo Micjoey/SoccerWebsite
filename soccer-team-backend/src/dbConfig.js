@@ -1,4 +1,5 @@
 import { SecretsManager } from "aws-sdk";
+import { Pool } from "pg"; // Make sure to import the 'Pool' class from 'pg'
 
 const secretsManager = new SecretsManager();
 
