@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.454.0",
     "@npmcli/fs": "^3.1.0",
     "@npmcli/move-file": "^3.0.0",
     "@testing-library/jest-dom": "^5.17.0",

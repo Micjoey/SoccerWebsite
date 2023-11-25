@@ -1,18 +1,19 @@
-import AWS from "aws-sdk";
+import {
+  SecretsManagerClient,
+  GetSecretValueCommand,
+} from "@aws-sdk/client-secrets-manager";
 import pgPromise from "pg-promise";
 
-// Set the AWS region here
-AWS.config.update({ region: "us-west-1" });
-
-const secretsManager = new AWS.SecretsManager();
+// Create an AWS Secrets Manager client
+const secretsManager = new SecretsManagerClient({ region: "us-west-1" });
 const pgp = pgPromise();
 
 // Helper function to fetch secrets
 const getSecret = async (secretName) => {
   try {
-    const response = await secretsManager
-      .getSecretValue({ SecretId: secretName })
-      .promise();
+    const command = new GetSecretValueCommand({ SecretId: secretName });
+    const response = await secretsManager.send(command);
+
     if (response.SecretString) {
       const secret = JSON.parse(response.SecretString);
       console.log(`Secret ${secretName} retrieved successfully.`);
@@ -30,15 +31,16 @@ const getSecret = async (secretName) => {
 // Access Secrets from AWS Secrets Manager
 const fetchSecrets = async () => {
   const POSTGRES_USER = await getSecret("soccerwebapp_DB_secret");
+  console.log(POSTGRES_USER);
   if (POSTGRES_USER) {
     // Use the secrets in your application
     const { username, password, dbname } = POSTGRES_USER;
     const db = pgp({
-      user: username,
-      host: "soccerwebapp_db", // Adjust if your DB host is different
+      user: username.toLowerCase(),
+      host: "localhost", // Use "localhost" for local PostgreSQL server
       database: dbname,
       password: password,
-      port: 5432, // Adjust if your DB port is different
+      port: 5432, // Default PostgreSQL port
     });
     return db;
   }
