@@ -31,7 +31,6 @@ const getSecret = async (secretName) => {
 // Access Secrets from AWS Secrets Manager
 const fetchSecrets = async () => {
   const POSTGRES_USER = await getSecret("soccerwebapp_DB_secret");
-  console.log(POSTGRES_USER);
   if (POSTGRES_USER) {
     // Use the secrets in your application
     const { username, password, dbname } = POSTGRES_USER;
