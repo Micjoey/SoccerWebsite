@@ -8,7 +8,15 @@ export default (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // Relationship with PlayerAvailability
+      Player.hasMany(models.PlayerAvailability, { foreignKey: "playerId" });
+
+      // Relationship with PlayerStatistic
+      Player.hasMany(models.PlayerStatistic, { foreignKey: "playerId" });
+
+      // Relationship with Team
+      // Assuming a player belongs to a team
+      Player.belongsTo(models.Team, { foreignKey: "teamId" });
     }
   }
   Player.init(
