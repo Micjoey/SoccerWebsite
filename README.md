@@ -123,3 +123,35 @@ To pull Docker images from Amazon ECR, follow these steps:
    `docker pull 552283470846.dkr.ecr.us-west-1.amazonaws.com/soccerwebsite`
 
    This will download the Docker image for your project.
+
+
+## Converting to ES Modules
+
+If you want to convert a CommonJS module to an ES module in your Node.js project, you can follow these steps. For example, if you have a migration file like this:
+
+CommonJS module (`.js` file):
+`module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable("Permissions", {
+      // ... table definition
+    });
+  },
+  // ... down function and other code
+};`
+
+You can convert it to an ES module (`.mjs` file) like this:
+
+ES module (`.mjs` file):
+`export async function up(queryInterface, Sequelize) {
+  await queryInterface.createTable("Permissions", {
+    // ... table definition
+  });
+}
+
+// ... down function and other code
+`
+
+By changing the `module.exports` to `export` and using `export async function`, you can create ES modules that work seamlessly with ECMAScript modules in Node.js.
+
+Issue with mug:
+https://github.com/sequelize/umzug/issues/475
