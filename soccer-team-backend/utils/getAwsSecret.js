@@ -13,7 +13,6 @@ export const getSecret = async (secretName) => {
 
     if (response.SecretString) {
       const secret = JSON.parse(response.SecretString);
-      console.log(`Secret ${secretName} retrieved successfully.`);
       return secret;
     } else {
       console.error(`Secret ${secretName} does not contain SecretString.`);

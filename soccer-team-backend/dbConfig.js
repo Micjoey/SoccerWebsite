@@ -6,7 +6,6 @@ const pgp = pgPromise();
 
 // Access Secrets from AWS Secrets Manager
 const fetchSecrets = async () => {
-  console.log("Fetch Secrets");
   const POSTGRES_USER = await getSecret("soccerwebapp_DB_secret");
   if (POSTGRES_USER) {
     // Use the secrets in your application

@@ -40,7 +40,6 @@ const initializeDatabase = async () => {
 
   db.sequelize = sequelize;
   db.Sequelize = Sequelize;
-  console.log(db);
   return db;
 };
 

@@ -2,7 +2,6 @@ import { getSecret } from "../utils/getAwsSecret.js";
 
 const getDatabaseConfig = async () => {
   // Modify this function to directly return the development configuration
-  console.log("getDatabaseConfig");
   const secret = await getSecret("soccerwebapp_DB_secret");
   if (!secret) {
     throw new Error("Database configuration secret not found");
@@ -18,4 +17,4 @@ const getDatabaseConfig = async () => {
   };
 };
 
-export default getDatabaseConfig();
+export default getDatabaseConfig;

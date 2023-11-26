@@ -6,7 +6,6 @@ const port = process.env.PORT || 3001;
 (async () => {
   try {
     const db = await fetchSecrets();
-    console.log("Database connection:", db);
     await db.sequelize.sync();
 
     app.listen(port, () => {
