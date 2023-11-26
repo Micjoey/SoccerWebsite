@@ -3,50 +3,45 @@
 import { readdirSync } from "fs";
 import { basename as _basename, join } from "path";
 import { Sequelize, DataTypes } from "sequelize";
-import { env as _env } from "process";
-import config from "../config/config.json"; // Updated import statement
+import config from "../config/config.js";
 
-const basename = _basename(__filename);
-const env = _env.NODE_ENV || "development";
-const envConfig = config[env]; // Accessing the environment-specific config
-const db: { [key: string]: never } = {}; // TypeScript type for db object
+const initializeDatabase = async () => {
+  const basename = _basename(__filename);
+  const envConfig = await config; // Directly fetching the development config
+  const db = {};
 
-let sequelize: Sequelize;
-if (envConfig.use_env_variable) {
-  sequelize = new Sequelize(_env[envConfig.use_env_variable], envConfig);
-} else {
-  sequelize = new Sequelize(
+  const sequelize = new Sequelize(
     envConfig.database,
     envConfig.username,
     envConfig.password,
     envConfig,
   );
-}
 
-readdirSync(__dirname)
-  .filter((file) => {
+  const modelFiles = readdirSync(__dirname).filter((file) => {
     return (
       file.indexOf(".") !== 0 &&
       file !== basename &&
       file.slice(-3) === ".js" &&
       file.indexOf(".test.js") === -1
     );
-  })
-  .forEach((file) => {
-    // Dynamically import each model file
-    import(join(__dirname, file)).then((module) => {
-      const model = module.default(sequelize, DataTypes);
-      db[model.name] = model;
-    });
   });
 
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
+  for (const file of modelFiles) {
+    const module = await import(join(__dirname, file));
+    const model = module.default(sequelize, DataTypes);
+    db[model.name] = model;
   }
-});
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+  Object.keys(db).forEach((modelName) => {
+    if (db[modelName].associate) {
+      db[modelName].associate(db);
+    }
+  });
 
-export default db;
+  db.sequelize = sequelize;
+  db.Sequelize = Sequelize;
+  console.log(db);
+  return db;
+};
+
+export default initializeDatabase;

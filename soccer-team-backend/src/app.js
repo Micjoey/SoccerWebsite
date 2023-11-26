@@ -1,12 +1,13 @@
 import express from "express";
 import cors from "cors";
-import scheduleRouter from "./routes/scheduleRoutes.js"; // Adjust the path as necessary
+import scheduleRouter from "./routes/scheduleRoutes.js";
 import rankingRouter from "./routes/rankingRoutes.js";
+import initializeDatabase from "../models/index.js";
 
 const app = express();
-app.use(cors()); // Enable CORS for all routes
+app.use(cors());
 
-app.use("/", scheduleRouter); // Mount the router on the '/api' path
-app.use("/", rankingRouter); // Mount the router on the '/api' path
+app.use("/", scheduleRouter);
+app.use("/", rankingRouter);
 
-export default app;
+export { app, initializeDatabase };
