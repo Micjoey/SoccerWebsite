@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# To run: ./soccer-team-backend/src/routes/create_routers.sh
 # Define the paths to the models and routes directories
 MODELS_DIR="/Users/macallansavett/code/soccer-website/soccer-team-backend/models"
 ROUTES_DIR="/Users/macallansavett/code/soccer-website/soccer-team-backend/src/routes"
