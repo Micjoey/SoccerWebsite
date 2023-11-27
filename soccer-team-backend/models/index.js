@@ -3,7 +3,7 @@
 import { readdirSync } from "fs";
 import { basename as _basename, join } from "path";
 import { Sequelize, DataTypes } from "sequelize";
-import config from "../config/initDb.js";
+import config from "../config/config.js";
 
 const initializeDatabase = async () => {
   const basename = _basename(__filename);

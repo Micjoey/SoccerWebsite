@@ -1,4 +1,4 @@
-import fetchSecrets from "../config/configDb.js";
+import initializeDatabase from "../models/index.js";
 import { app } from "./app.js"; // Import the configured express app
 
 const port = process.env.PORT || 3001; // Use environment port or default to 3001
@@ -6,8 +6,7 @@ const port = process.env.PORT || 3001; // Use environment port or default to 300
 (async () => {
   try {
     // Initialize Sequelize and database connection
-    const db = await fetchSecrets();
-    console.log("SERVER: DB was a success");
+    const db = await initializeDatabase();
     if (!db) {
       console.error("Database connection is undefined.");
       return; // Exit the application gracefully
