@@ -1,25 +1,27 @@
-import fetchSecrets from "../dbConfig.js";
-import { app } from "./app.js";
+import fetchSecrets from "../config/configDb.js";
+import { app } from "./app.js"; // Import the configured express app
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3001; // Use environment port or default to 3001
 
 (async () => {
   try {
+    // Initialize Sequelize and database connection
     const db = await fetchSecrets();
-    await db.sequelize.sync();
+    console.log("SERVER: DB was a success");
+    if (!db) {
+      console.error("Database connection is undefined.");
+      return; // Exit the application gracefully
+    }
 
+    // Log server startup message
+    console.log(`Server is starting on http://localhost:${port}`);
+
+    // Start Express server
     app.listen(port, () => {
-      console.log(`Server running on http://localhost:${port}`);
+      console.log(`Server is now listening on port ${port}`);
     });
-
-    db.query("SELECT version()")
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   } catch (error) {
+    // Log any errors that occurred during startup
     console.error("Failed to start the server:", error);
   }
 })();
