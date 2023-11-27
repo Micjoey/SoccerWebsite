@@ -1,17 +1,23 @@
-import { pool } from "./dbConfig.js";
-import app from "./app.js"; // Import the configured express app
+import initializeDatabase from "../models/index.js";
+import { app, setDatabase } from "./app.js"; // Import setDatabase function
 
-const port = process.env.PORT || 3001; // Use environment port or default to 3001
+const port = process.env.PORT || 3001;
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-
-  pool.query("SELECT version()", (err, res) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log(res.rows[0]);
+(async () => {
+  try {
+    const db = await initializeDatabase();
+    if (!db) {
+      console.error("Database connection is undefined.");
+      return;
     }
-    pool.end();
-  });
-});
+
+    setDatabase(db); // Set the db object for the app
+
+    console.log(`Server is starting on http://localhost:${port}`);
+    app.listen(port, () => {
+      console.log(`Server is now listening on port ${port}`);
+    });
+  } catch (error) {
+    console.error("Failed to start the server:", error);
+  }
+})();
