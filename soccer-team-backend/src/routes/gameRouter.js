@@ -1,13 +1,10 @@
 import express from "express";
-import Game from "../../models/game.js";
 
 const router = express.Router();
 
-// Endpoint to get a list of all games
 router.get("/games", async (req, res) => {
   try {
-    const games = await Game.findAll(); // Use Sequelize to fetch all games
-    console.log(1, games);
+    const games = await req.db.Game.findAll();
     res.json(games);
   } catch (error) {
     console.error(error);
