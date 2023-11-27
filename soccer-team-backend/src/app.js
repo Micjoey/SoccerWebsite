@@ -1,14 +1,12 @@
+// src/app.js
+
 import express from "express";
 import cors from "cors";
-import scheduleRouter from "./routes/scheduleRouter.js";
-import rankingRouter from "./routes/rankingRouter.js";
-import initializeDatabase from "../models/index.js";
-import gameRouter from "./routes/gameRouter.js";
+import setupRoutes from "./routeHandler.js"; // Import the central route setup function
 
 const app = express();
 app.use(cors());
 
-// Add a middleware to attach db to the request object
 let dbInstance = null;
 export const setDatabase = (db) => {
   dbInstance = db;
@@ -19,8 +17,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", scheduleRouter);
-app.use("/", rankingRouter);
-app.use("/games", gameRouter);
+// Set up all routes
+setupRoutes(app);
 
 export { app };
