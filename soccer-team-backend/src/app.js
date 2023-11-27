@@ -21,6 +21,6 @@ app.use((req, res, next) => {
 
 app.use("/", scheduleRouter);
 app.use("/", rankingRouter);
-app.use("/", gameRouter);
+app.use("/games", gameRouter);
 
 export { app };
