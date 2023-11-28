@@ -6,6 +6,7 @@ interface Game {
   id: string;
   date: string; // Updated from gameDate
   opponent: string; // Updated from gameOpponent
+  location: string; // Additional data field
 }
 
 const GameScheduleManager: React.FC = () => {
@@ -16,7 +17,9 @@ const GameScheduleManager: React.FC = () => {
     date: "",
     opponent: "",
   });
-  const [deleteGameId, setDeleteGameId] = useState("");
+  const [deleteGameIds, setDeleteGameIds] = useState<string[]>([]);
+  const [selectedGameId, setSelectedGameId] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Fetch games when the component mounts
@@ -30,15 +33,20 @@ const GameScheduleManager: React.FC = () => {
         const gamesData = await response.json();
         setGames(gamesData);
       } else {
-        console.error("Failed to fetch games");
+        setError("Failed to fetch games");
       }
     } catch (error) {
-      console.error("Error fetching games:", error);
+      setError("Error fetching games");
     }
   };
 
   const handleAddGame = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!newGame.date || !newGame.opponent) {
+      setError("Date and opponent are required fields");
+      return;
+    }
+
     try {
       const response = await fetch("http://localhost:3001/games", {
         method: "POST",
@@ -51,18 +59,24 @@ const GameScheduleManager: React.FC = () => {
         const addedGame = await response.json();
         setGames((currentGames) => [...currentGames, addedGame]);
         setNewGame({ date: "", opponent: "" }); // Reset form fields
+        setError(null);
       } else {
-        console.error("Failed to add game");
+        setError("Failed to add game");
       }
     } catch (error) {
-      console.error("Error adding game:", error);
+      setError("Error adding game");
     }
   };
 
   const handleUpdateGame = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!selectedGameId || !updateGame.date || !updateGame.opponent) {
+      setError("Please select a game and provide date and opponent");
+      return;
+    }
+
     try {
-      const response = await fetch(`/games/${updateGame.id}`, {
+      const response = await fetch(`/games/${selectedGameId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -80,30 +94,47 @@ const GameScheduleManager: React.FC = () => {
           ),
         );
         setUpdateGame({ id: "", date: "", opponent: "" }); // Reset form fields
+        setSelectedGameId("");
+        setError(null);
       } else {
-        console.error("Failed to update game");
+        setError("Failed to update game");
       }
     } catch (error) {
-      console.error("Error updating game:", error);
+      setError("Error updating game");
     }
   };
 
-  const handleDeleteGame = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleGameCheckboxChange = (gameId: string) => {
+    if (deleteGameIds.includes(gameId)) {
+      setDeleteGameIds(deleteGameIds.filter((id) => id !== gameId));
+    } else {
+      setDeleteGameIds([...deleteGameIds, gameId]);
+    }
+  };
+
+  const handleDeleteSelectedGames = async () => {
+    if (deleteGameIds.length === 0) {
+      setError("No games selected for deletion");
+      return;
+    }
+
     try {
-      const response = await fetch(`/games/${deleteGameId}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        setGames((currentGames) =>
-          currentGames.filter((game) => game.id !== deleteGameId),
-        );
-        setDeleteGameId(""); // Reset field
-      } else {
-        console.error("Failed to delete game");
+      for (const gameId of deleteGameIds) {
+        const response = await fetch(`/games/${gameId}`, {
+          method: "DELETE",
+        });
+        if (response.ok) {
+          setGames((currentGames) =>
+            currentGames.filter((game) => game.id !== gameId),
+          );
+        } else {
+          setError(`Failed to delete game with ID ${gameId}`);
+        }
       }
+      setDeleteGameIds([]);
+      setError(null);
     } catch (error) {
-      console.error("Error deleting game:", error);
+      setError("Error deleting games");
     }
   };
 
@@ -114,30 +145,55 @@ const GameScheduleManager: React.FC = () => {
         <Row className="mb-4">
           <Col>
             <h2>Game Schedule</h2>
+            {error && <p className="text-danger">{error}</p>}
             <Table striped bordered hover>
               <thead>
                 <tr>
+                  <th>ID</th>
                   <th>Date</th>
                   <th>Opponent</th>
+                  <th>Location</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
                 {games.map((game) => (
                   <tr key={game.id}>
+                    <td>{game.id}</td>
                     <td>{game.date}</td>
                     <td>{game.opponent}</td>
+                    <td>{game.location}</td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        onChange={() => handleGameCheckboxChange(game.id)}
+                        checked={deleteGameIds.includes(game.id)}
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </Table>
           </Col>
         </Row>
-
+        {/* Delete Selected Games */}
+        <Row>
+          <Col>
+            <Button
+              variant="danger"
+              onClick={handleDeleteSelectedGames}
+              disabled={deleteGameIds.length === 0}
+            >
+              Delete Selected Games
+            </Button>
+          </Col>
+        </Row>
         {/* Add Game */}
         <Row className="mb-4">
           <Col>
             <h2>Add New Game</h2>
             <Form onSubmit={handleAddGame}>
+              {error && <p className="text-danger">{error}</p>}
               <Form.Group controlId="formGameDate">
                 <Form.Label>Date</Form.Label>
                 <Form.Control
@@ -170,15 +226,21 @@ const GameScheduleManager: React.FC = () => {
           <Col>
             <h2>Update Game</h2>
             <Form onSubmit={handleUpdateGame}>
+              {error && <p className="text-danger">{error}</p>}
               <Form.Group controlId="formUpdateGameId">
-                <Form.Label>Game ID</Form.Label>
+                <Form.Label>Select Game</Form.Label>
                 <Form.Control
-                  type="text"
-                  value={updateGame.id}
-                  onChange={(e) =>
-                    setUpdateGame({ ...updateGame, id: e.target.value })
-                  }
-                />
+                  as="select"
+                  value={selectedGameId}
+                  onChange={(e) => setSelectedGameId(e.target.value)}
+                >
+                  <option value="">Select a game</option>
+                  {games.map((game) => (
+                    <option key={game.id} value={game.id}>
+                      {game.date} - {game.opponent}
+                    </option>
+                  ))}
+                </Form.Control>
               </Form.Group>
               <Form.Group controlId="formUpdateGameDate">
                 <Form.Label>Date</Form.Label>
@@ -202,26 +264,6 @@ const GameScheduleManager: React.FC = () => {
               </Form.Group>
               <Button variant="success" type="submit">
                 Update Game
-              </Button>
-            </Form>
-          </Col>
-        </Row>
-
-        {/* Delete Game */}
-        <Row>
-          <Col>
-            <h2>Delete Game</h2>
-            <Form onSubmit={handleDeleteGame}>
-              <Form.Group controlId="formDeleteGameId">
-                <Form.Label>Game ID</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={deleteGameId}
-                  onChange={(e) => setDeleteGameId(e.target.value)}
-                />
-              </Form.Group>
-              <Button variant="danger" type="submit">
-                Delete Game
               </Button>
             </Form>
           </Col>

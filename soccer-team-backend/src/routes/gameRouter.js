@@ -3,7 +3,7 @@ import express from "express";
 const router = express.Router();
 
 // Get all games
-router.get("/games", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const games = await req.db.Game.findAll();
     res.json(games);
