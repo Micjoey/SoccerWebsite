@@ -21,6 +21,9 @@ const GameScheduleManager: React.FC = () => {
     date: "",
     opponent: "",
     location: "",
+    time: "", // Add time property
+    homeTeamColor: "", // Add homeTeamColor property
+    awayTeamColor: "", // Add awayTeamColor property
   });
   const [deleteGameIds, setDeleteGameIds] = useState<string[]>([]);
   const [selectedGameId, setSelectedGameId] = useState<string | null>(null);
@@ -87,6 +90,9 @@ const GameScheduleManager: React.FC = () => {
           date: "",
           opponent: "",
           location: "",
+          time: "", // Add time property
+          homeTeamColor: "", // Add homeTeamColor property
+          awayTeamColor: "", // Add awayTeamColor property
         }); // Reset form fields
         setError(null);
       } else {
@@ -126,6 +132,9 @@ const GameScheduleManager: React.FC = () => {
           date: "",
           opponent: "",
           location: "",
+          time: "", // Add time property
+          homeTeamColor: "", // Add homeTeamColor property
+          awayTeamColor: "", // Add awayTeamColor property
         });
         setError(null);
       } else {
@@ -212,6 +221,9 @@ const GameScheduleManager: React.FC = () => {
                           date: game.date,
                           opponent: game.opponent,
                           location: game.location,
+                          time: game.time, // Add time property
+                          homeTeamColor: game.homeTeamColor, // Add homeTeamColor property
+                          awayTeamColor: game.awayTeamColor, // Add awayTeamColor property
                         });
                       }}
                     >
