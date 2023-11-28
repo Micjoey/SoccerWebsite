@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Form, Table } from "react-bootstrap";
 import "./GameScheduleManager.scss";
+import { formatDate } from "../../Utils/convertDate";
 
 interface Game {
   id: string;
-  date: string; // Updated from gameDate
-  opponent: string; // Updated from gameOpponent
-  location: string; // Additional data field
+  date: string;
+  opponent: string;
+  location: string; // Address or location
+  locationLink?: string; // Optional Google Maps link
 }
 
 const GameScheduleManager: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
-  const [newGame, setNewGame] = useState({ date: "", opponent: "" });
-  const [updateGame, setUpdateGame] = useState({
-    id: "",
-    date: "",
-    opponent: "",
-  });
+  const dataDictionary = { date: "", opponent: "", location: "" };
+  const [newGame, setNewGame] = useState(dataDictionary);
+  const [updateGame, setUpdateGame] = useState(
+    Object.assign(
+      {},
+      {
+        id: "",
+      },
+      dataDictionary,
+    ),
+  );
   const [deleteGameIds, setDeleteGameIds] = useState<string[]>([]);
   const [selectedGameId, setSelectedGameId] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -42,8 +49,8 @@ const GameScheduleManager: React.FC = () => {
 
   const handleAddGame = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!newGame.date || !newGame.opponent) {
-      setError("Date and opponent are required fields");
+    if (!newGame.date || !newGame.opponent || !newGame.location) {
+      setError("Date, opponent, and location are required fields");
       return;
     }
 
@@ -58,7 +65,7 @@ const GameScheduleManager: React.FC = () => {
       if (response.ok) {
         const addedGame = await response.json();
         setGames((currentGames) => [...currentGames, addedGame]);
-        setNewGame({ date: "", opponent: "" }); // Reset form fields
+        setNewGame(dataDictionary); // Reset form fields
         setError(null);
       } else {
         setError("Failed to add game");
@@ -70,34 +77,38 @@ const GameScheduleManager: React.FC = () => {
 
   const handleUpdateGame = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!selectedGameId || !updateGame.date || !updateGame.opponent) {
-      setError("Please select a game and provide date and opponent");
+    if (!selectedGameId || (!updateGame.date && !updateGame.opponent)) {
+      setError("Please select a game and provide date or opponent");
       return;
     }
 
     try {
-      const response = await fetch(`/games/${selectedGameId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          date: updateGame.date,
-          opponent: updateGame.opponent,
-        }),
-      });
+      const response = await fetch(`/games/${selectedGameId}`);
       if (response.ok) {
-        const updatedGame = await response.json();
-        setGames((currentGames) =>
-          currentGames.map((game) =>
-            game.id === updatedGame.id ? updatedGame : game,
-          ),
-        );
-        setUpdateGame({ id: "", date: "", opponent: "" }); // Reset form fields
-        setSelectedGameId("");
+        const selectedGameData = await response.json();
+
+        // Check for differences between the current state and fetched data
+        const updatedFields: Partial<Game> = {};
+        if (updateGame.date !== selectedGameData.date) {
+          updatedFields.date = selectedGameData.date;
+        }
+        if (updateGame.opponent !== selectedGameData.opponent) {
+          updatedFields.opponent = selectedGameData.opponent;
+        }
+        if (updateGame.location !== selectedGameData.location) {
+          updatedFields.location = selectedGameData.location;
+        }
+
+        // Update only the fields that have changed
+        setUpdateGame((prevUpdateGame) => ({
+          ...prevUpdateGame,
+          ...updatedFields,
+        }));
+
+        setSelectedGameId(""); // Clear the selected game ID
         setError(null);
       } else {
-        setError("Failed to update game");
+        setError("Failed to fetch game data");
       }
     } catch (error) {
       setError("Error updating game");
@@ -160,7 +171,7 @@ const GameScheduleManager: React.FC = () => {
                 {games.map((game) => (
                   <tr key={game.id}>
                     <td>{game.id}</td>
-                    <td>{game.date}</td>
+                    <td>{formatDate(game.date)}</td>
                     <td>{game.opponent}</td>
                     <td>{game.location}</td>
                     <td>
@@ -214,6 +225,16 @@ const GameScheduleManager: React.FC = () => {
                   }
                 />
               </Form.Group>
+              <Form.Group controlId="formLocation">
+                <Form.Label>Location</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={newGame.location}
+                  onChange={(e) =>
+                    setNewGame({ ...newGame, location: e.target.value })
+                  }
+                />
+              </Form.Group>
               <Button variant="primary" type="submit">
                 Add Game
               </Button>
@@ -227,21 +248,6 @@ const GameScheduleManager: React.FC = () => {
             <h2>Update Game</h2>
             <Form onSubmit={handleUpdateGame}>
               {error && <p className="text-danger">{error}</p>}
-              <Form.Group controlId="formUpdateGameId">
-                <Form.Label>Select Game</Form.Label>
-                <Form.Control
-                  as="select"
-                  value={selectedGameId}
-                  onChange={(e) => setSelectedGameId(e.target.value)}
-                >
-                  <option value="">Select a game</option>
-                  {games.map((game) => (
-                    <option key={game.id} value={game.id}>
-                      {game.date} - {game.opponent}
-                    </option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
               <Form.Group controlId="formUpdateGameDate">
                 <Form.Label>Date</Form.Label>
                 <Form.Control
@@ -259,6 +265,16 @@ const GameScheduleManager: React.FC = () => {
                   value={updateGame.opponent}
                   onChange={(e) =>
                     setUpdateGame({ ...updateGame, opponent: e.target.value })
+                  }
+                />
+              </Form.Group>
+              <Form.Group controlId="formUpdateLocation">
+                <Form.Label>Location</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={updateGame.location}
+                  onChange={(e) =>
+                    setUpdateGame({ ...updateGame, location: e.target.value })
                   }
                 />
               </Form.Group>
