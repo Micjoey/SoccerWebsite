@@ -21,6 +21,7 @@ export default (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "AdminTask",
+      timestamps: true,
     },
   );
   return AdminTask;

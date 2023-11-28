@@ -21,6 +21,7 @@ export default (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "GameResult",
+      timestamps: true,
     },
   );
   return GameResult;

@@ -28,6 +28,7 @@ export default (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Player",
+      timestamps: true,
     },
   );
   return Player;

@@ -22,6 +22,7 @@ export default (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Team",
+      timestamps: true,
     },
   );
   return Team;
