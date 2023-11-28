@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import "./GameScheduleManager.scss";
 import { formatDate } from "../../Utils/convertDate";
+import GameSchedule from "./GameSchedule/GameSchedule";
 
 interface Game {
   id: string;
@@ -182,58 +183,12 @@ const GameScheduleManager: React.FC = () => {
         {/* List Games */}
         <Row className="mb-4">
           <Col>
-            <h2>Game Schedule</h2>
-            {error && <p className="text-danger">{error}</p>}
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Opponent</th>
-                  <th>Location</th>
-                  <th>Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {games.map((game) => (
-                  <tr key={game.id}>
-                    <td>{formatDate(game.date)}</td>
-                    <td>{game.opponent}</td>
-                    <td>
-                      {game.locationLink ? (
-                        <a
-                          href={game.locationLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {game.location}
-                        </a>
-                      ) : (
-                        game.location
-                      )}
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        onChange={() => handleGameCheckboxChange(game.id)}
-                        checked={deleteGameIds.includes(game.id)}
-                      />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
-        {/* Delete Selected Games */}
-        <Row>
-          <Col>
-            <Button
-              variant="danger"
-              onClick={handleDeleteSelectedGames}
-              disabled={deleteGameIds.length === 0}
-            >
-              Delete Selected Games
-            </Button>
+            <GameSchedule
+              games={games}
+              deleteGameIds={deleteGameIds}
+              handleGameCheckboxChange={handleGameCheckboxChange}
+              handleDeleteSelectedGames={handleDeleteSelectedGames}
+            />
           </Col>
         </Row>
         {/* Add Game */}
