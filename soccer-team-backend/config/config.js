@@ -11,7 +11,7 @@ const getDatabaseConfig = async () => {
     port: secrets.port || 5432,
     dialect: "postgres",
     define: {
-      timestamps: false,
+      timestamps: true,
     },
   };
   return config;

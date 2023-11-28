@@ -10,15 +10,9 @@ import {
 } from "react-bootstrap";
 import "./GameScheduleManager.scss";
 import { formatDate } from "../../Utils/convertDate";
+import { Game } from "./types";
 import GameSchedule from "./GameSchedule/GameSchedule";
-
-interface Game {
-  id: string;
-  date: string;
-  opponent: string;
-  location: string;
-  locationLink?: string;
-}
+import AddGame from "./AddGame/AddGame";
 
 const GameScheduleManager: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
@@ -63,8 +57,7 @@ const GameScheduleManager: React.FC = () => {
     }
   };
 
-  const handleAddGame = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleAddGameSubmit = async (newGame: Partial<Game>) => {
     if (!newGame.date || !newGame.opponent || !newGame.location) {
       setError("Date, opponent, and location are required fields");
       return;
@@ -194,43 +187,7 @@ const GameScheduleManager: React.FC = () => {
         {/* Add Game */}
         <Row className="mb-4">
           <Col>
-            <h2>Add New Game</h2>
-            <Form onSubmit={handleAddGame}>
-              {error && <p className="text-danger">{error}</p>}
-              <Form.Group controlId="formGameDate">
-                <Form.Label>Date</Form.Label>
-                <Form.Control
-                  type="date"
-                  value={newGame.date}
-                  onChange={(e) =>
-                    setNewGame({ ...newGame, date: e.target.value })
-                  }
-                />
-              </Form.Group>
-              <Form.Group controlId="formOpponent">
-                <Form.Label>Opponent</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={newGame.opponent}
-                  onChange={(e) =>
-                    setNewGame({ ...newGame, opponent: e.target.value })
-                  }
-                />
-              </Form.Group>
-              <Form.Group controlId="formLocation">
-                <Form.Label>Location</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={newGame.location}
-                  onChange={(e) =>
-                    setNewGame({ ...newGame, location: e.target.value })
-                  }
-                />
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Add Game
-              </Button>
-            </Form>
+            <AddGame handleAddGameSubmit={handleAddGameSubmit} error={error} />
           </Col>
         </Row>
 
@@ -241,7 +198,7 @@ const GameScheduleManager: React.FC = () => {
             <Form onSubmit={handleUpdateGame}>
               {error && <p className="text-danger">{error}</p>}
               <Dropdown>
-                <Dropdown.Toggle variant="primary" id="updateGameDropdown">
+                <Dropdown.Toggle variant="secondary" id="updateGameDropdown">
                   Select Game to Update
                 </Dropdown.Toggle>
                 <Dropdown.Menu>

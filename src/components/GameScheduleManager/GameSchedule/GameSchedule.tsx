@@ -5,9 +5,12 @@ import { formatDate } from "../../../Utils/convertDate";
 interface Game {
   id: string;
   date: string;
+  time: string; // Added game time
   opponent: string;
   location: string;
   locationLink?: string;
+  homeTeamColor: string; // Added home team color
+  awayTeamColor: string; // Added away team color
 }
 
 interface GameScheduleProps {
@@ -30,8 +33,11 @@ const GameSchedule: React.FC<GameScheduleProps> = ({
         <thead>
           <tr>
             <th>Date</th>
+            <th>Time</th> {/* Added Time column */}
             <th>Opponent</th>
             <th>Location</th>
+            <th>Home Team Color</th> {/* Added Home Team Color column */}
+            <th>Away Team Color</th> {/* Added Away Team Color column */}
             <th>Delete</th>
           </tr>
         </thead>
@@ -39,6 +45,7 @@ const GameSchedule: React.FC<GameScheduleProps> = ({
           {games.map((game) => (
             <tr key={game.id}>
               <td>{formatDate(game.date)}</td>
+              <td>{game.time}</td> {/* Display game time */}
               <td>{game.opponent}</td>
               <td>
                 {game.locationLink ? (
@@ -53,6 +60,8 @@ const GameSchedule: React.FC<GameScheduleProps> = ({
                   game.location
                 )}
               </td>
+              <td>{game.homeTeamColor}</td> {/* Display Home Team Color */}
+              <td>{game.awayTeamColor}</td> {/* Display Away Team Color */}
               <td>
                 <input
                   type="checkbox"

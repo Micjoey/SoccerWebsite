@@ -12,13 +12,19 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.DATE,
     },
     time: {
-      type: Sequelize.STRING,
+      type: Sequelize.TIME,
     },
     opponent: {
       type: Sequelize.STRING,
     },
     location: {
       type: Sequelize.STRING,
+    },
+    homeTeamColor: {
+      type: Sequelize.STRING, // Team color for the home team
+    },
+    awayTeamColor: {
+      type: Sequelize.STRING, // Team color for the away team
     },
     createdAt: {
       allowNull: false,
@@ -32,6 +38,7 @@ export async function up(queryInterface, Sequelize) {
     },
   });
 }
+
 export async function down(queryInterface, Sequelize) {
   await queryInterface.dropTable("Games");
 }
