@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Form, Table } from "react-bootstrap";
 import "./GameScheduleManager.scss";
 
 interface Game {
   id: string;
-  date: string;
-  opponent: string;
+  date: string; // Updated from gameDate
+  opponent: string; // Updated from gameOpponent
 }
 
 const GameScheduleManager: React.FC = () => {
@@ -17,6 +17,25 @@ const GameScheduleManager: React.FC = () => {
     opponent: "",
   });
   const [deleteGameId, setDeleteGameId] = useState("");
+
+  useEffect(() => {
+    // Fetch games when the component mounts
+    fetchGames();
+  }, []);
+
+  const fetchGames = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/games");
+      if (response.ok) {
+        const gamesData = await response.json();
+        setGames(gamesData);
+      } else {
+        console.error("Failed to fetch games");
+      }
+    } catch (error) {
+      console.error("Error fetching games:", error);
+    }
+  };
 
   const handleAddGame = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -103,8 +122,8 @@ const GameScheduleManager: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {games.map((game, index) => (
-                  <tr key={index}>
+                {games.map((game) => (
+                  <tr key={game.id}>
                     <td>{game.date}</td>
                     <td>{game.opponent}</td>
                   </tr>
