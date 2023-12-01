@@ -21,10 +21,10 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.STRING,
     },
     homeTeamColor: {
-      type: Sequelize.STRING, // Team color for the home team
+      type: Sequelize.STRING,
     },
     awayTeamColor: {
-      type: Sequelize.STRING, // Team color for the away team
+      type: Sequelize.STRING,
     },
     createdAt: {
       allowNull: false,

@@ -16,11 +16,11 @@ export default (sequelize, DataTypes) => {
   Game.init(
     {
       date: DataTypes.DATE,
-      time: DataTypes.TIME, // Updated to TIME type
+      time: DataTypes.TIME,
       opponent: DataTypes.STRING,
       location: DataTypes.STRING,
-      homeTeamColor: DataTypes.STRING, // Added home team color
-      awayTeamColor: DataTypes.STRING, // Added away team color
+      homeTeamColor: DataTypes.STRING,
+      awayTeamColor: DataTypes.STRING,
     },
     {
       sequelize,
