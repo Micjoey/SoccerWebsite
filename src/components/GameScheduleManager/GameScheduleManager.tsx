@@ -221,9 +221,9 @@ const GameScheduleManager: React.FC = () => {
                           date: game.date,
                           opponent: game.opponent,
                           location: game.location,
-                          time: game.time, // Add time property
-                          homeTeamColor: game.homeTeamColor, // Add homeTeamColor property
-                          awayTeamColor: game.awayTeamColor, // Add awayTeamColor property
+                          time: game.time,
+                          homeTeamColor: game.homeTeamColor,
+                          awayTeamColor: game.awayTeamColor,
                         });
                       }}
                     >
