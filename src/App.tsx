@@ -7,6 +7,7 @@ import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import SchedulePage from "./components/SchedulePage/SchedulePage";
 import Header from "./components/Header/Header";
 import GameScheduleManager from "./components/GameScheduleManager/GameScheduleManager";
+import Availability from "./components/Availability/Availability-js";
 
 function App() {
   return (
