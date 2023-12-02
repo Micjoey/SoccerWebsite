@@ -7,7 +7,7 @@ import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import SchedulePage from "./components/SchedulePage/SchedulePage";
 import Header from "./components/Header/Header";
 import GameScheduleManager from "./components/GameScheduleManager/GameScheduleManager";
-import Availability from "./components/Availability/Availability-js";
+import Profile from "./components/Profile/profile";
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/schedule" element={<SchedulePage />} />
           <Route path="/game" element={<GameScheduleManager />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

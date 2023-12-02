@@ -12,6 +12,7 @@ const Header: React.FC = () => {
         <Nav className="mr-auto">
           <Nav.Link href="/schedule">Schedule</Nav.Link>
           <Nav.Link href="/game">Game Manager</Nav.Link>
+          <Nav.Link href="/profile">Profile</Nav.Link>
           <ContactLink />
         </Nav>
       </Navbar.Collapse>
