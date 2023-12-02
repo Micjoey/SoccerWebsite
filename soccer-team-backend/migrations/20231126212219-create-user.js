@@ -11,15 +11,27 @@ export async function up(queryInterface, Sequelize) {
     },
     username: {
       type: Sequelize.STRING,
+      allowNull: true,
     },
     password: {
       type: Sequelize.STRING,
+      allowNull: false,
     },
     email: {
       type: Sequelize.STRING,
+      allowNull: false,
+    },
+    phone: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    contactPreference: {
+      type: Sequelize.ENUM("email", "phone"),
+      allowNull: false,
     },
     role: {
       type: Sequelize.STRING,
+      allowNull: true,
     },
     createdAt: {
       allowNull: false,
@@ -31,18 +43,16 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.DATE,
       defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
     },
-  });
-
-  // Add the roleId column to the Users table
-  await queryInterface.addColumn("Users", "roleId", {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: "Roles",
-      key: "id",
+    roleId: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+      references: {
+        model: "Roles",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "SET NULL",
     },
-    onUpdate: "CASCADE",
-    onDelete: "CASCADE",
   });
 }
 

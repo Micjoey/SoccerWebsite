@@ -2,9 +2,9 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/all", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    const items = await req.db.player.findAll();
+    const items = await req.db.Player.findAll();
     res.json(items);
   } catch (error) {
     console.error(error);
@@ -17,7 +17,15 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  // Logic to fetch a single player by id
+  try {
+    const player = await req.db.Player.findByPk(req.params.id);
+    if (!player) {
+      return res.status(404).json({ message: "Player not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching player" });
+  }
 });
 
 router.put("/:id", async (req, res) => {
