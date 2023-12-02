@@ -17,7 +17,10 @@ export default (sequelize, DataTypes) => {
     {
       username: DataTypes.STRING,
       password: DataTypes.STRING,
-      email: DataTypes.STRING,
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
       phone: DataTypes.STRING,
       contactPreference: DataTypes.ENUM("email", "phone"),
       role: DataTypes.STRING,

@@ -9,7 +9,7 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Relationship with Player
-      UserStatistic.belongsTo(models.Player, { foreignKey: "userId" });
+      UserStatistic.belongsTo(models.User, { foreignKey: "userId" });
 
       // Relationship with Game
       UserStatistic.belongsTo(models.Game, { foreignKey: "gameId" });

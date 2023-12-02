@@ -10,7 +10,7 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       // Relationship with Player
       // Assuming a player belongs to a team
-      Team.hasMany(models.Player, { foreignKey: "teamId" });
+      Team.hasMany(models.User, { foreignKey: "teamId" });
     }
   }
   Team.init(
