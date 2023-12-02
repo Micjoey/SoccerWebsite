@@ -1,6 +1,5 @@
 "use strict";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 
 async function generateHashedPassword(password) {
   const saltRounds = 10;
