@@ -2,84 +2,84 @@
 
 export async function up(queryInterface, Sequelize) {
   await queryInterface.bulkInsert(
-    "PlayerAvailabilities",
+    "PlayerAvailability",
     [
       {
-        playerId: 1,
+        userId: 1,
         gameId: 1,
         availability: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        playerId: 2,
+        userId: 2,
         gameId: 2,
         availability: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        playerId: 3,
+        userId: 3,
         gameId: 1,
         availability: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        playerId: 1,
+        userId: 1,
         gameId: 3,
         availability: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        playerId: 4,
+        userId: 4,
         gameId: 2,
         availability: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        playerId: 2,
+        userId: 2,
         gameId: 3,
         availability: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        playerId: 5,
+        userId: 5,
         gameId: 1,
         availability: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        playerId: 3,
+        userId: 3,
         gameId: 3,
         availability: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        playerId: 1,
+        userId: 1,
         gameId: 4,
         availability: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        playerId: 4,
+        userId: 4,
         gameId: 4,
         availability: false,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-      // Add more PlayerAvailabilities here
+      // Add more PlayerAvailability here
     ],
     {},
   );
 }
 
 export async function down(queryInterface, Sequelize) {
-  await queryInterface.bulkDelete("PlayerAvailabilities", null, {});
+  await queryInterface.bulkDelete("PlayerAvailability", null, {});
 }

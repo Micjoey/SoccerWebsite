@@ -5,8 +5,8 @@ export default (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // Define associations here
-      User.hasMany(models.PlayerAvailability, { foreignKey: "userId" });
-      User.hasMany(models.PlayerStatistic, { foreignKey: "userId" });
+      User.hasMany(models.UserAvailability, { foreignKey: "userId" });
+      User.hasMany(models.UserStatistic, { foreignKey: "userId" });
       User.belongsTo(models.Team, { foreignKey: "teamId" });
       User.hasMany(models.AdminTask, { foreignKey: "userId" });
       User.belongsTo(models.Role, { foreignKey: "roleId" });

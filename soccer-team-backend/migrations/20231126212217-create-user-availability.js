@@ -1,21 +1,21 @@
 "use strict";
 /** @type {import('sequelize-cli').Migration} */
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("PlayerStatistics", {
+  await queryInterface.createTable("PlayerAvailability", {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    playerId: {
+    userId: {
       type: Sequelize.INTEGER,
     },
     gameId: {
       type: Sequelize.INTEGER,
     },
-    stats: {
-      type: Sequelize.TEXT,
+    availability: {
+      type: Sequelize.BOOLEAN,
     },
     createdAt: {
       allowNull: false,
@@ -30,5 +30,5 @@ export async function up(queryInterface, Sequelize) {
   });
 }
 export async function down(queryInterface, Sequelize) {
-  await queryInterface.dropTable("PlayerStatistics");
+  await queryInterface.dropTable("PlayerAvailability");
 }

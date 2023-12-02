@@ -2,10 +2,10 @@
 
 export async function up(queryInterface, Sequelize) {
   await queryInterface.bulkInsert(
-    "PlayerStatistics",
+    "UserStatistics",
     [
       {
-        playerId: 1,
+        userId: 1,
         gameId: 1,
         stats: "Scored 2 goals",
         createdAt: new Date(),
@@ -16,5 +16,5 @@ export async function up(queryInterface, Sequelize) {
   );
 }
 export async function down(queryInterface, Sequelize) {
-  await queryInterface.bulkDelete("PlayerStatistics", null, {});
+  await queryInterface.bulkDelete("UserStatistics", null, {});
 }

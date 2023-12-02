@@ -1,7 +1,7 @@
 "use strict";
 import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
-  class PlayerStatistic extends Model {
+  class UserAvailability extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,23 +9,23 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // Relationship with Player
-      PlayerStatistic.belongsTo(models.Player, { foreignKey: "playerId" });
+      UserAvailability.belongsTo(models.Player, { foreignKey: "userId" });
 
       // Relationship with Game
-      PlayerStatistic.belongsTo(models.Game, { foreignKey: "gameId" });
+      UserAvailability.belongsTo(models.Game, { foreignKey: "gameId" });
     }
   }
-  PlayerStatistic.init(
+  UserAvailability.init(
     {
-      playerId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       gameId: DataTypes.INTEGER,
-      stats: DataTypes.TEXT,
+      availability: DataTypes.BOOLEAN,
     },
     {
       sequelize,
-      modelName: "PlayerStatistic",
+      modelName: "UserAvailability",
       timestamps: true,
     },
   );
-  return PlayerStatistic;
+  return UserAvailability;
 };
