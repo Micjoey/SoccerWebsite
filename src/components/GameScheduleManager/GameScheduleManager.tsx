@@ -13,6 +13,7 @@ import { formatDate } from "../../Utils/convertDate";
 import { Game } from "./types";
 import GameSchedule from "./GameSchedule/GameSchedule";
 import AddGame from "./AddGame/AddGame";
+import getAuthorizationHeaders from "../LoginFlow/authorizeJwtToken";
 
 const GameScheduleManager: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
@@ -72,11 +73,10 @@ const GameScheduleManager: React.FC = () => {
     )}`;
 
     try {
+      const headers = getAuthorizationHeaders();
       const response = await fetch("http://localhost:3001/api/games", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers,
         body: JSON.stringify({
           ...newGame,
           locationLink,
