@@ -12,7 +12,7 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.DATE,
     },
     time: {
-      type: Sequelize.STRING,
+      type: Sequelize.TIME,
     },
     opponent: {
       type: Sequelize.STRING,
@@ -20,16 +20,25 @@ export async function up(queryInterface, Sequelize) {
     location: {
       type: Sequelize.STRING,
     },
+    homeTeamColor: {
+      type: Sequelize.STRING,
+    },
+    awayTeamColor: {
+      type: Sequelize.STRING,
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
     },
     updatedAt: {
       allowNull: false,
       type: Sequelize.DATE,
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
     },
   });
 }
+
 export async function down(queryInterface, Sequelize) {
   await queryInterface.dropTable("Games");
 }

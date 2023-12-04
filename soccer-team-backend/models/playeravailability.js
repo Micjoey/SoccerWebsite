@@ -24,6 +24,7 @@ export default (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "PlayerAvailability",
+      timestamps: true,
     },
   );
   return PlayerAvailability;

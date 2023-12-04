@@ -11,6 +11,7 @@ const Header: React.FC = () => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="/schedule">Schedule</Nav.Link>
+          <Nav.Link href="/game">Game Manager</Nav.Link>
           <ContactLink />
         </Nav>
       </Navbar.Collapse>

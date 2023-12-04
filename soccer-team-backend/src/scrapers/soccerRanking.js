@@ -1,9 +1,20 @@
 import scrapeData from "./scrapeUtility.js";
+import { getCache, setCache } from "../../utils/inMemoryCache.js";
 
 export default async function scrapeRankings() {
   const url = "https://www.gssl.org/schedule/479844/sun-open-d2";
   const selector =
     "#ctl00_ContentPlaceHolder1_StandingsResultsControl_standingsGrid_ctl00 tr";
+
+  const cacheKey = `rankings-${url}`;
+  const ttl = 1000 * 60 * 60; // Cache TTL of 1 hour
+
+  // Try to get data from cache
+  const cachedData = getCache(cacheKey, ttl);
+  if (cachedData) {
+    return { rankings: cachedData };
+  }
+
   const dataExtractor = ($row) => {
     // Using Cheerio's methods instead of querySelectorAll
     const $tds = $row.find("td");
@@ -25,6 +36,9 @@ export default async function scrapeRankings() {
   };
 
   const scrapedData = await scrapeData(url, selector, dataExtractor);
+
+  // Cache the scraped data
+  setCache(cacheKey, scrapedData);
 
   // Create a JSON object with the scraped data
   const jsonData = {

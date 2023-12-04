@@ -7,7 +7,7 @@ interface Column {
 }
 
 interface GenericTableComponentProps {
-  data: never[]; // You can replace 'any' with a more specific type based on your data structure
+  data: never[];
   columns: Column[];
   loading: boolean;
   error: string | null;

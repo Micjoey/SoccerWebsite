@@ -1,6 +1,6 @@
 // ScheduleComponent.js
-import GenericTableComponent from "../../Utils/GenericTableComponent";
-import useFetchData from "../../Utils/useFetchData";
+import GenericTableComponent from "../../GenericComponents/GenericTableComponent";
+import useFetchData from "../../GenericComponents/useFetchData";
 
 const ScheduleComponent = () => {
   const { data, loading, error } = useFetchData(

@@ -1,9 +1,17 @@
 import scrapeData from "./scrapeUtility.js";
+import { getCache, setCache } from "../../utils/inMemoryCache.js";
 
 export default async function scrapeSchedule() {
   const url = "https://www.gssl.org/schedule/479844/sun-open-d2";
   const selector =
     "#ctl00_ContentPlaceHolder1_StandingsResultsControl_ScheduleGrid_ctl00 tr.rgRow";
+  const cacheKey = `schedule-${url}`;
+  const ttl = 1000 * 60 * 60; // Cache TTL of 1 hour
+
+  const cachedData = getCache(cacheKey, ttl);
+  if (cachedData) {
+    return { schedule: cachedData };
+  }
 
   const dataExtractor = ($row) => {
     const $tds = $row.find("td");
@@ -36,6 +44,8 @@ export default async function scrapeSchedule() {
     const jsonData = {
       schedule: scrapedData,
     };
+    // Cache the scraped data
+    setCache(cacheKey, scrapedData);
 
     return jsonData;
   } catch (error) {

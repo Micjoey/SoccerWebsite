@@ -18,6 +18,7 @@ export default (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Permission",
+      timestamps: true,
     },
   );
   return Permission;

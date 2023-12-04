@@ -20,6 +20,7 @@ export default (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Role",
+      timestamps: true,
     },
   );
   return Role;

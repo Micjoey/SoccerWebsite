@@ -2,11 +2,6 @@
 import { Model } from "sequelize";
 export default (sequelize, DataTypes) => {
   class Game extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
       // Relationship with PlayerAvailability
       Game.hasMany(models.PlayerAvailability, { foreignKey: "gameId" });
@@ -21,13 +16,16 @@ export default (sequelize, DataTypes) => {
   Game.init(
     {
       date: DataTypes.DATE,
-      time: DataTypes.STRING,
+      time: DataTypes.TIME,
       opponent: DataTypes.STRING,
       location: DataTypes.STRING,
+      homeTeamColor: DataTypes.STRING,
+      awayTeamColor: DataTypes.STRING,
     },
     {
       sequelize,
       modelName: "Game",
+      timestamps: true,
     },
   );
   return Game;
