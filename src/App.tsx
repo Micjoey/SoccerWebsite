@@ -26,49 +26,38 @@ function App() {
     }
   }, []);
 
+  // Define your route configurations with an isPrivate property
+  const routes = [
+    { path: "/login", element: <Login />, isPrivate: false },
+    { path: "/signup", element: <SignupScreen />, isPrivate: false },
+    { path: "/", element: <HomePage />, isPrivate: true },
+    { path: "/schedule", element: <SchedulePage />, isPrivate: true },
+    { path: "/game", element: <GameScheduleManager />, isPrivate: true },
+    { path: "/profile", element: <Profile />, isPrivate: true },
+  ];
+
   return (
     <Router>
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignupScreen />} />
-          <Route
-            path="/"
-            element={
-              <PrivateRoute
-                element={<HomePage />}
-                authenticated={authenticated}
-              />
-            }
-          />
-          <Route
-            path="/schedule"
-            element={
-              <PrivateRoute
-                element={<SchedulePage />}
-                authenticated={authenticated}
-              />
-            }
-          />
-          <Route
-            path="/game"
-            element={
-              <PrivateRoute
-                element={<GameScheduleManager />}
-                authenticated={authenticated}
-              />
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute
-                element={<Profile />}
-                authenticated={authenticated}
-              />
-            }
-          />
+          {routes.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              element={
+                route.isPrivate ? (
+                  <PrivateRoute
+                    element={route.element}
+                    authenticated={authenticated}
+                  />
+                ) : (
+                  route.element
+                )
+              }
+            />
+          ))}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </Router>

@@ -1,6 +1,7 @@
 import { Route, Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ element, authenticated }) => {
+  console.log("I am: ", authenticated);
   return authenticated ? (
     element
   ) : (

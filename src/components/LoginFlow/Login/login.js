@@ -22,6 +22,10 @@ const LoginScreen = () => {
         const { token, user } = data;
         localStorage.setItem("token", token);
         // Update user state or navigate to a protected route
+        console.log(token, user);
+        if (user) {
+          window.location = "/";
+        }
       } else {
         console.error("Authentication failed");
       }
