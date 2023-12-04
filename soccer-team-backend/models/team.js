@@ -17,7 +17,7 @@ export default (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       logo: DataTypes.STRING,
-      description: DataTypes.TEXT,
+      association: DataTypes.TEXT,
     },
     {
       sequelize,

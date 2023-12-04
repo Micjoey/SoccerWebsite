@@ -11,11 +11,11 @@ export async function up(queryInterface, Sequelize) {
     },
     username: {
       type: Sequelize.STRING,
-      allowNull: true, // Allow null as per model
+      allowNull: true,
     },
     name: {
       type: Sequelize.STRING,
-      allowNull: true, // Allow null as per model
+      allowNull: true,
     },
     password: {
       type: Sequelize.STRING,
@@ -24,7 +24,6 @@ export async function up(queryInterface, Sequelize) {
     email: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique: true, // Ensure email is unique as per model
     },
     phone: {
       type: Sequelize.STRING,
@@ -36,31 +35,7 @@ export async function up(queryInterface, Sequelize) {
     },
     role: {
       type: Sequelize.STRING,
-      allowNull: true, // Allow null as per model
-    },
-    position: {
-      type: Sequelize.STRING,
-      allowNull: true, // Added position, allow null as it's not in the initial migration
-    },
-    teamId: {
-      type: Sequelize.INTEGER,
-      allowNull: true, // Assuming teamId can be null if the association is optional
-      references: {
-        model: "Teams", // Make sure this matches the table name exactly
-        key: "id",
-      },
-      onUpdate: "CASCADE",
-      onDelete: "SET NULL",
-    },
-    roleId: {
-      type: Sequelize.INTEGER,
       allowNull: true,
-      references: {
-        model: "Roles", // Make sure this matches the table name exactly
-        key: "id",
-      },
-      onUpdate: "CASCADE",
-      onDelete: "SET NULL",
     },
     createdAt: {
       allowNull: false,
@@ -71,6 +46,16 @@ export async function up(queryInterface, Sequelize) {
       allowNull: false,
       type: Sequelize.DATE,
       defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    },
+    roleId: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+      references: {
+        model: "Roles",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "SET NULL",
     },
   });
 }

@@ -14,8 +14,9 @@ export async function up(queryInterface, Sequelize) {
     logo: {
       type: Sequelize.STRING,
     },
-    description: {
-      type: Sequelize.TEXT,
+    association: {
+      type: Sequelize.STRING,
+      allowNull: true,
     },
     createdAt: {
       allowNull: false,
