@@ -1,31 +1,49 @@
 .header {
-    background-color: #004d99;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-  
-    .title {
-      margin: 0;
-      font-size: 2em;
-    }
-  
-    .navigation {
-      margin-top: 10px;
-  
-      a {
-        color: white;
-        margin: 0 10px;
+  position: sticky;
+  top: 0;
+  z-index: 1000; // Ensure the header stays above other content
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
+  background-color: #0056b3;
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .brand-container {
+    .navbar-brand {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 1.5rem;
+      font-weight: 700;
+      &:hover, &:focus {
+        color: #cce5ff;
         text-decoration: none;
-        font-weight: bold;
-  
-        &:hover {
-          text-decoration: underline;
-        }
       }
     }
-    .logo-image {
-      max-height: 100px;
-      background-color: red;
+  }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+
+    .nav-link {
+      text-decoration: none;
+      color: #ffffff;
+      margin-left: 1rem;
+      padding: 0.25rem 0;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+
+      &:hover, &:focus {
+        color: #cce5ff;
+        text-decoration: none;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
-  
+}

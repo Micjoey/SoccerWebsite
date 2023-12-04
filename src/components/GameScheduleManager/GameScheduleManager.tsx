@@ -80,9 +80,9 @@ const GameScheduleManager: React.FC = () => {
           date: "",
           opponent: "",
           location: "",
-          time: "", // Add time property
-          homeTeamColor: "", // Add homeTeamColor property
-          awayTeamColor: "", // Add awayTeamColor property
+          time: "",
+          homeTeamColor: "",
+          awayTeamColor: "",
         }); // Reset form fields
         setError(null);
       } else {
@@ -101,7 +101,9 @@ const GameScheduleManager: React.FC = () => {
     }
 
     try {
-      const response = await customFetch(`/games/${selectedGameId}`);
+      const response = await customFetch(
+        `http://localhost:3001/api/games/${selectedGameId}`,
+      );
       if (response.ok) {
         const selectedGameData: Game = await response.json();
         const updatedFields: Partial<Game> = {
@@ -151,9 +153,12 @@ const GameScheduleManager: React.FC = () => {
 
     try {
       for (const gameId of deleteGameIds) {
-        const response = await customFetch(`/games/${gameId}`, {
-          method: "DELETE",
-        });
+        const response = await customFetch(
+          `http://localhost:3001/api/games/${gameId}`,
+          {
+            method: "DELETE",
+          },
+        );
         if (response.ok) {
           setGames((currentGames) =>
             currentGames.filter((game) => game.id !== gameId),

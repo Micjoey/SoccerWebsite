@@ -1,22 +1,28 @@
 import React from "react";
 import "./Header.scss";
-import { Navbar, Nav } from "react-bootstrap";
 import ContactLink from "./Contact";
 
 const Header: React.FC = () => {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="header">
-      <Navbar.Brand href="/">GoalNetServer</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="/schedule">Schedule</Nav.Link>
-          <Nav.Link href="/game">Game Manager</Nav.Link>
-          <Nav.Link href="/profile">Profile</Nav.Link>
-          <ContactLink />
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+    <header className="header">
+      <div className="brand-container">
+        <a href="/" className="navbar-brand">
+          GoalNetServer
+        </a>
+      </div>
+      <nav className="navbar">
+        <a href="/schedule" className="nav-link">
+          Schedule
+        </a>
+        <a href="/game" className="nav-link">
+          Game Manager
+        </a>
+        <a href="/profile" className="nav-link">
+          Profile
+        </a>
+        <ContactLink />
+      </nav>
+    </header>
   );
 };
 
