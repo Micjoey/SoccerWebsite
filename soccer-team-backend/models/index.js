@@ -42,6 +42,9 @@ const initializeDatabase = async () => {
     }
   });
 
+  // // Synchronize the database with the models (create tables if they don't exist)
+  // await sequelize.sync();
+
   db.sequelize = sequelize;
   db.Sequelize = Sequelize;
   return db;
