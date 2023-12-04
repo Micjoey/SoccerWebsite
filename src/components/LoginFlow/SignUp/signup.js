@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import "./SignUpScreen.scss"; // Ensure this SCSS file is created and compiled to CSS
+import { useUser } from "../../Profile/UserContext";
 
 const SignUpScreen = () => {
   const [userData, setUserData] = useState({
@@ -11,6 +12,8 @@ const SignUpScreen = () => {
     contactPreference: "email",
     name: "",
   });
+
+  const { setUserInfo } = useUser(); // Access setUser from the context
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -26,7 +29,6 @@ const SignUpScreen = () => {
         },
         body: JSON.stringify(userData),
       });
-
       if (!response.ok) {
         throw new Error("Error in form submission");
       }
@@ -34,7 +36,8 @@ const SignUpScreen = () => {
       const result = await response.json();
       console.log("Form submitted successfully:", result);
 
-      localStorage.setItem("soccer_website_session_id", result.token);
+      sessionStorage.setItem("authToken", result.token);
+      setUserInfo(userData);
 
       // Additional logic after successful signup (e.g., redirecting the user)
     } catch (error) {

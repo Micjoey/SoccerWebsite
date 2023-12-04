@@ -5,7 +5,6 @@ import { logout } from "../LoginFlow/logout";
 import getAuthorizationHeaders from "../LoginFlow/authorizeJwtToken";
 
 const Header: React.FC = () => {
-  console.log(getAuthorizationHeaders());
   return (
     <header className="header">
       <div className="brand-container">

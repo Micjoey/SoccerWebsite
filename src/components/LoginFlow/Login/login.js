@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import "./login.scss";
-import { useUser } from "../../Profile/UserContext";
+import { useUser } from "../../Profile/UserContext.js";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setUser } = useUser(); // Access setUser from the context
+  const { setUserInfo } = useUser();
+  const navigate = useNavigate(); // Use the useNavigate hook
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,10 +26,10 @@ const LoginScreen = () => {
         sessionStorage.setItem("authToken", token);
 
         // Set the user data in the context
-        setUser(user);
+        setUserInfo(user);
 
-        // Redirect to the profile page
-        window.location = "/profile";
+        // Redirect to the profile page using navigate
+        navigate("/profile");
       } else {
         console.error("Authentication failed");
       }
