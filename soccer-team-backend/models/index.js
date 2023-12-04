@@ -5,6 +5,8 @@ import { fileURLToPath } from "url";
 import { Sequelize, DataTypes } from "sequelize";
 import config from "../config/config.js";
 
+// DROP TABLE IF EXISTS "RolePermission", "SequelizeMeta", "UserAvailabilities", "AdminTasks", "GameResults", "Games", "Permissions", "PlayerAvailability", "Roles", "Teams", "UserStatistics", "Users" CASCADE;
+
 const initializeDatabase = async () => {
   // Derive __filename and __dirname using fileURLToPath and import.meta.url
   const __filename = fileURLToPath(import.meta.url);

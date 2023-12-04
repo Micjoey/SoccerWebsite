@@ -10,6 +10,7 @@ export async function up(queryInterface, Sequelize) {
   const users = [
     {
       username: "admin",
+      name: "admin",
       email: "admin@example.com",
       phone: "1234567890",
       contactPreference: "email",
@@ -19,7 +20,8 @@ export async function up(queryInterface, Sequelize) {
       updatedAt: new Date(),
     },
     {
-      username: "admin",
+      username: "admin2",
+      name: "admin2",
       email: "admin2@example.com",
       phone: "1234567890",
       contactPreference: "email",
