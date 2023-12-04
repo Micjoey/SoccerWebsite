@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
-
-const secretKey = "your-secret-key"; // Replace with your actual secret key
+import { JWT_TOKEN_KEY } from "../routes/login/authController";
 
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization; // Assuming the token is sent in the "Authorization" header
@@ -11,7 +10,7 @@ const verifyToken = (req, res, next) => {
       .json({ message: "Authentication failed. Token not provided." });
   }
 
-  jwt.verify(token, secretKey, (err, decoded) => {
+  jwt.verify(token, JWT_TOKEN_KEY, (err, decoded) => {
     if (err) {
       return res
         .status(401)

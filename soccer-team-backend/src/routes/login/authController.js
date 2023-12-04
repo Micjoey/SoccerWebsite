@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-const authController = {
+export const JWT_TOKEN_KEY = "soccerwebapp_jwt_password";
+
+export const authController = {
   async login(req, res) {
     try {
       const { email, password } = req.body;
@@ -20,8 +22,7 @@ const authController = {
           .json({ message: "Authentication failed. Wrong password." });
       }
 
-      const jwt_token_key = "soccerwebapp_jwt_password";
-      const token = jwt.sign({ userId: user.id }, jwt_token_key, {
+      const token = jwt.sign({ userId: user.id }, JWT_TOKEN_KEY, {
         expiresIn: "1h",
       });
 
@@ -62,5 +63,3 @@ const authController = {
     }
   },
 };
-
-export default authController;
