@@ -10,6 +10,7 @@ import Profile from "./components/Profile/profile";
 import Login from "./components/LoginFlow/Login/login";
 import PrivateRoute from "./components/LoginFlow/privateRoute";
 import SignupScreen from "./components/LoginFlow/SignUp/signup";
+import TopLevelWrapper from "./TopLevelWrapper";
 
 function App() {
   // Define your route configurations with an isPrivate property
@@ -23,27 +24,29 @@ function App() {
   ];
 
   return (
-    <Router>
-      <div className="App">
-        <Header />
-        <Routes>
-          {routes.map((route, index) => (
-            <Route
-              key={index}
-              path={route.path}
-              element={
-                route.isPrivate ? (
-                  <PrivateRoute element={route.element} />
-                ) : (
-                  route.element
-                )
-              }
-            />
-          ))}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </div>
-    </Router>
+    <TopLevelWrapper>
+      <Router>
+        <div className="App">
+          <Header />
+          <Routes>
+            {routes.map((route, index) => (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  route.isPrivate ? (
+                    <PrivateRoute element={route.element} />
+                  ) : (
+                    route.element
+                  )
+                }
+              />
+            ))}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
+      </Router>
+    </TopLevelWrapper>
   );
 }
 
