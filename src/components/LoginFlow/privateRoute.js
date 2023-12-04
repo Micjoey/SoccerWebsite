@@ -1,7 +1,7 @@
 import { Route, Navigate } from "react-router-dom";
 
-const PrivateRoute = ({ element, authenticated }) => {
-  console.log("I am: ", authenticated);
+const PrivateRoute = ({ element }) => {
+  const authenticated = sessionStorage.getItem("authToken");
   return authenticated ? (
     element
   ) : (

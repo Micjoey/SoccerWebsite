@@ -12,20 +12,6 @@ import PrivateRoute from "./components/LoginFlow/privateRoute";
 import SignupScreen from "./components/LoginFlow/SignUp/signup";
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
-
-  useEffect(() => {
-    // Check if the user is authenticated (e.g., by verifying a token in localStorage)
-    const token = localStorage.getItem("authToken"); // Replace with your actual token key
-    if (token) {
-      // User is authenticated, set authenticated state to true
-      setAuthenticated(true);
-    } else {
-      // User is not authenticated, set authenticated state to false
-      setAuthenticated(false);
-    }
-  }, []);
-
   // Define your route configurations with an isPrivate property
   const routes = [
     { path: "/login", element: <Login />, isPrivate: false },
@@ -35,7 +21,6 @@ function App() {
     { path: "/game", element: <GameScheduleManager />, isPrivate: true },
     { path: "/profile", element: <Profile />, isPrivate: true },
   ];
-
   return (
     <Router>
       <div className="App">
@@ -47,10 +32,7 @@ function App() {
               path={route.path}
               element={
                 route.isPrivate ? (
-                  <PrivateRoute
-                    element={route.element}
-                    authenticated={authenticated}
-                  />
+                  <PrivateRoute element={route.element} />
                 ) : (
                   route.element
                 )

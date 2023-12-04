@@ -1,5 +1,5 @@
 const getAuthorizationHeaders = (): HeadersInit => {
-  const token = localStorage.getItem("authToken"); // Retrieve the JWT token from localStorage
+  const token = sessionStorage.getItem("authToken"); // Retrieve the JWT token from localStorage
 
   if (token) {
     return {

@@ -47,15 +47,11 @@ const authController = {
       const { email, password } = req.body;
       const User = req.db.User; // Access the User model from req.db
 
-      console.log("Received signup request for email:", email);
-
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // Create a new user in the database
       const newUser = await User.create({ email, password: hashedPassword });
-
-      console.log("Signup successful.");
 
       res.json({ message: "Signup successful." });
     } catch (error) {

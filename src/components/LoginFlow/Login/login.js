@@ -20,9 +20,8 @@ const LoginScreen = () => {
       if (response.ok) {
         const data = await response.json();
         const { token, user } = data;
-        localStorage.setItem("authToken", token);
+        sessionStorage.setItem("authToken", token);
         // Update user state or navigate to a protected route
-        console.log(token, user);
         if (user) {
           window.location = "/";
         }

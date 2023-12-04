@@ -3,7 +3,7 @@ import rankingRouter from "./routes/rankingRouter.js";
 import gameRouter from "./routes/gameRouter.js";
 import authRouter from "./routes/login/authRoutes.js";
 import userRouter from "./routes/userRouter.js";
-import { verifyToken } from "./middleware/authMiddleware.js"; // Import your token verification middleware
+import verifyToken from "./middleware/authMiddleware.js";
 
 const setupRoutes = (app) => {
   // Public routes (no authentication required)

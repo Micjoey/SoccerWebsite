@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  Table,
-  Dropdown,
-} from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Dropdown } from "react-bootstrap";
 import "./GameScheduleManager.scss";
 import { formatDate } from "../../Utils/convertDate";
 import { Game } from "./types";
 import GameSchedule from "./GameSchedule/GameSchedule";
 import AddGame from "./AddGame/AddGame";
 import getAuthorizationHeaders from "../LoginFlow/authorizeJwtToken";
+import customFetch from "../../Utils/customFetch";
 
 const GameScheduleManager: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
@@ -37,7 +30,7 @@ const GameScheduleManager: React.FC = () => {
 
   const fetchGames = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/games");
+      const response = await customFetch("http://localhost:3001/api/games");
       if (response.ok) {
         const gamesData: Game[] = await response.json();
 
