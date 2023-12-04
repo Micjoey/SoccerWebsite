@@ -1,5 +1,3 @@
-"use strict";
-/** @type {import('sequelize-cli').Migration} */
 export async function up(queryInterface, Sequelize) {
   // Create the Users table
   await queryInterface.createTable("Users", {
@@ -14,6 +12,10 @@ export async function up(queryInterface, Sequelize) {
       allowNull: true,
     },
     name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    position: {
       type: Sequelize.STRING,
       allowNull: true,
     },
@@ -52,6 +54,16 @@ export async function up(queryInterface, Sequelize) {
       allowNull: true,
       references: {
         model: "Roles",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "SET NULL",
+    },
+    teamId: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+      references: {
+        model: "Teams",
         key: "id",
       },
       onUpdate: "CASCADE",

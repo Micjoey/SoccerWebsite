@@ -1,4 +1,3 @@
-"use strict";
 import { Model } from "sequelize";
 
 export default (sequelize, DataTypes) => {
@@ -7,7 +6,7 @@ export default (sequelize, DataTypes) => {
       // Define associations here
       User.hasMany(models.UserAvailability, { foreignKey: "userId" });
       User.hasMany(models.UserStatistic, { foreignKey: "userId" });
-      User.belongsTo(models.Team, { foreignKey: "teamId" });
+      User.belongsTo(models.Team, { foreignKey: "teamId", allowNull: true }); // Make teamId optional
       User.hasMany(models.AdminTask, { foreignKey: "userId" });
       User.belongsTo(models.Role, { foreignKey: "roleId" });
     }
