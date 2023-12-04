@@ -24,10 +24,8 @@ export default (sequelize, DataTypes) => {
       phone: DataTypes.STRING,
       contactPreference: DataTypes.ENUM("email", "phone"),
       role: DataTypes.STRING,
-      // Additional attributes from the Player model
       name: DataTypes.STRING,
       position: DataTypes.STRING,
-      contactDetails: DataTypes.TEXT,
     },
     {
       sequelize,

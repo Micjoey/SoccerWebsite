@@ -1,4 +1,3 @@
-// SignUpScreen.jsx
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import "./SignUpScreen.scss"; // Ensure this SCSS file is created and compiled to CSS
@@ -11,8 +10,6 @@ const SignUpScreen = () => {
     phone: "",
     contactPreference: "email",
     name: "",
-    position: "",
-    contactDetails: "",
   });
 
   const handleChange = (e) => {
@@ -23,6 +20,18 @@ const SignUpScreen = () => {
     e.preventDefault();
     // Add your sign-up logic here
     console.log("Form submitted:", userData);
+  };
+
+  const handleAutofill = () => {
+    // Simulate autofilling data
+    setUserData({
+      username: "autofilledUsername",
+      password: "autofilledPassword",
+      email: "autofilled@email.com",
+      phone: "123-456-7890",
+      contactPreference: "phone",
+      name: "Autofilled Name",
+    });
   };
 
   return (
@@ -120,33 +129,17 @@ const SignUpScreen = () => {
               />
             </Form.Group>
 
-            {/* Position */}
-            <Form.Group className="mb-3" controlId="formBasicPosition">
-              <Form.Label>Position</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter position"
-                name="position"
-                value={userData.position}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            {/* Contact Details */}
-            <Form.Group className="mb-4" controlId="formBasicContactDetails">
-              <Form.Label>Contact Details</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                placeholder="Enter additional contact details"
-                name="contactDetails"
-                value={userData.contactDetails}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
             <Button variant="primary" type="submit" className="w-100">
               Sign Up
+            </Button>
+
+            {/* Autofill Button */}
+            <Button
+              variant="secondary"
+              onClick={handleAutofill}
+              className="w-100 mt-3"
+            >
+              Autofill
             </Button>
           </Form>
         </Col>
