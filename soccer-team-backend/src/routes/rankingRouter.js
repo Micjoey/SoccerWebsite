@@ -4,7 +4,7 @@ import scrapeRankings from "../scrapers/soccerRanking.js";
 const router = express.Router();
 
 // Endpoint to get the soccer schedule
-router.get("/ranking", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const data = await scrapeRankings();
     res.json(data);

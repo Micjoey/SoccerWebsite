@@ -26,7 +26,7 @@ const GenericTableComponent: React.FC<GenericTableComponentProps> = ({
   if (error) {
     return <div>Error: {error}</div>;
   }
-
+  console.log(data);
   return (
     <Table striped bordered hover>
       <thead>

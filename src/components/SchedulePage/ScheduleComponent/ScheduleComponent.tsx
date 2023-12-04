@@ -15,7 +15,7 @@ const ScheduleComponent = () => {
         );
         if (response.ok) {
           const scheduleData = await response.json();
-          setData(scheduleData);
+          setData(scheduleData.schedule); // Extracting 'schedule' from the fetched data
           setLoading(false);
         } else {
           throw new Error("Failed to fetch schedule");
@@ -34,7 +34,8 @@ const ScheduleComponent = () => {
     { header: "Time", accessor: "time" },
     { header: "Home Team", accessor: "homeTeam" },
     { header: "Away Team", accessor: "awayTeam" },
-    // Add more columns as needed
+    { header: "Location", accessor: "location.text" }, // Adjusting for nested property
+    // Add a column for location link if needed
   ];
 
   return (

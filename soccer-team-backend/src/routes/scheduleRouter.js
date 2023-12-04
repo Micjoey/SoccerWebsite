@@ -4,7 +4,7 @@ import scrapeSchedule from "../scrapers/soccerSchedule.js";
 const router = express.Router();
 
 // Endpoint to get the soccer schedule
-router.get("/schedule", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const data = await scrapeSchedule();
     res.json(data);

@@ -8,12 +8,12 @@ const RankingComponent = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchRanking = async () => {
+    const fetchRankings = async () => {
       try {
         const response = await customFetch("http://localhost:3001/api/ranking");
         if (response.ok) {
-          const rankingData = await response.json();
-          setData(rankingData);
+          const fetchedData = await response.json();
+          setData(fetchedData.rankings); // Assuming the data structure you provided
           setLoading(false);
         } else {
           throw new Error("Failed to fetch rankings");
@@ -24,7 +24,7 @@ const RankingComponent = () => {
       }
     };
 
-    fetchRanking();
+    fetchRankings();
   }, []);
 
   const columns = [
