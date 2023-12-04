@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  Table,
-  Dropdown,
-} from "react-bootstrap";
+import React from "react";
+import { useUser } from "./UserContext"; // Import the useUser hook
+import { Container, Row, Col } from "react-bootstrap";
 
 const Profile = () => {
-  const [user, setUser] = useState();
-  return <h2>Welcome XXX</h2>;
+  const { user } = useUser(); // Use the useUser hook to access user data
+
+  return (
+    <Container>
+      <Row>
+        <Col>
+          {user ? <h2>Welcome {user.name}</h2> : <p>User data not available</p>}
+        </Col>
+      </Row>
+      {/* ... rest of your profile component */}
+    </Container>
+  );
 };
 
 export default Profile;

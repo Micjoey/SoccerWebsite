@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./login.scss";
+import { useUser } from "../../Profile/UserContext";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useUser(); // Access setUser from the context
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,12 +23,12 @@ const LoginScreen = () => {
         const data = await response.json();
         const { token, user } = data;
         sessionStorage.setItem("authToken", token);
-        // Update user state or navigate to a protected route
-        console.log(user);
-        if (user) {
-          window._soccerwebapp__user = user;
-          window.location = "/";
-        }
+
+        // Set the user data in the context
+        setUser(user);
+
+        // Redirect to the profile page
+        window.location = "/profile";
       } else {
         console.error("Authentication failed");
       }
