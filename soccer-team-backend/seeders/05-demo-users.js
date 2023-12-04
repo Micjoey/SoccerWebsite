@@ -18,6 +18,16 @@ export async function up(queryInterface, Sequelize) {
       createdAt: new Date(),
       updatedAt: new Date(),
     },
+    {
+      username: "admin",
+      email: "admin2@example.com",
+      phone: "1234567890",
+      contactPreference: "email",
+      password: 123,
+      roleId: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
   ];
 
   await queryInterface.bulkInsert("Users", users, {});

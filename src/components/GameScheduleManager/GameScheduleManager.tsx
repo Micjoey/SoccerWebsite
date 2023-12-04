@@ -36,7 +36,7 @@ const GameScheduleManager: React.FC = () => {
 
   const fetchGames = async () => {
     try {
-      const response = await fetch("http://localhost:3001/games");
+      const response = await fetch("http://localhost:3001/api/games");
       if (response.ok) {
         const gamesData: Game[] = await response.json();
 
@@ -72,7 +72,7 @@ const GameScheduleManager: React.FC = () => {
     )}`;
 
     try {
-      const response = await fetch("http://localhost:3001/games", {
+      const response = await fetch("http://localhost:3001/api/games", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

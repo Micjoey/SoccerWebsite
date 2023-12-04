@@ -16,10 +16,31 @@ const SignUpScreen = () => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your sign-up logic here
-    console.log("Form submitted:", userData);
+    try {
+      const response = await fetch("http://localhost:3001/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error in form submission");
+      }
+
+      const result = await response.json();
+      console.log("Form submitted successfully:", result);
+
+      localStorage.setItem("soccer_website_session_id", result.token);
+
+      // Additional logic after successful signup (e.g., redirecting the user)
+    } catch (error) {
+      console.error("Form submission error:", error.message);
+      // Handle errors (e.g., show an error message to the user)
+    }
   };
 
   const handleAutofill = () => {

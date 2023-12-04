@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom"; // Corrected import for Link
+import { Link } from "react-router-dom";
 import "./login.scss";
 
 const LoginScreen = () => {
@@ -10,24 +10,19 @@ const LoginScreen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send a POST request to your authentication endpoint with email and password
-      const response = await fetch("http://localhost:3001/login", {
+      const response = await fetch("http://localhost:3001/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
-      console.log(response);
       if (response.ok) {
-        // Authentication succeeded, you can redirect or set user state here
         const data = await response.json();
         const { token, user } = data;
-        // Store the token in localStorage or a state management solution
         localStorage.setItem("token", token);
         // Update user state or navigate to a protected route
       } else {
-        // Authentication failed, handle errors
         console.error("Authentication failed");
       }
     } catch (error) {

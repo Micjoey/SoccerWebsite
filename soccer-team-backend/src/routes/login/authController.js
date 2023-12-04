@@ -36,7 +36,9 @@ const authController = {
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // Create a new user in the database
+      print("Starting create");
       const newUser = await User.create({ email, password: hashedPassword });
+      print("Starting create", newUser);
 
       res.json({ message: "Signup successful." });
     } catch (error) {
