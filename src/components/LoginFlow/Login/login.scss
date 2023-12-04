@@ -1,0 +1,23 @@
+.login-screen {
+    .login-form {
+      max-width: 400px;
+      margin: auto;
+  
+      .form-control-lg {
+        // Custom styles for large form controls
+        border-radius: 0.25rem;
+        border: 1px solid #ced4da;
+      }
+  
+      .btn-lg {
+        // Custom styles for large buttons
+        padding: 0.5rem 1rem;
+        font-size: 1.25rem;
+        line-height: 1.5;
+        border-radius: 0.3rem;
+      }
+  
+      // Additional custom styles...
+    }
+  }
+  
