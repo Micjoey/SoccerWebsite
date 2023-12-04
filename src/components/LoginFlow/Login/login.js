@@ -22,7 +22,9 @@ const LoginScreen = () => {
         const { token, user } = data;
         sessionStorage.setItem("authToken", token);
         // Update user state or navigate to a protected route
+        console.log(user);
         if (user) {
+          window._soccerwebapp__user = user;
           window.location = "/";
         }
       } else {

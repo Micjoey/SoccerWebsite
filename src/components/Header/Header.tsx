@@ -1,6 +1,7 @@
 import React from "react";
 import "./Header.scss";
 import ContactLink from "./Contact";
+import { logout } from "../LoginFlow/logout";
 
 const Header: React.FC = () => {
   return (
@@ -12,7 +13,7 @@ const Header: React.FC = () => {
       </div>
       <nav className="navbar">
         <a href="/schedule" className="nav-link">
-          Schedule
+          Schedule (GSSL)
         </a>
         <a href="/game" className="nav-link">
           Game Manager
@@ -20,6 +21,7 @@ const Header: React.FC = () => {
         <a href="/profile" className="nav-link">
           Profile
         </a>
+        {}
         <ContactLink />
       </nav>
     </header>

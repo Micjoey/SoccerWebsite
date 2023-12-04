@@ -21,6 +21,7 @@ function App() {
     { path: "/game", element: <GameScheduleManager />, isPrivate: true },
     { path: "/profile", element: <Profile />, isPrivate: true },
   ];
+
   return (
     <Router>
       <div className="App">

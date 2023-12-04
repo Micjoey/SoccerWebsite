@@ -3,11 +3,11 @@ import rankingRouter from "./routes/rankingRouter.js";
 import gameRouter from "./routes/gameRouter.js";
 import authRouter from "./routes/login/authRoutes.js";
 import userRouter from "./routes/userRouter.js";
-import verifyToken from "./middleware/authMiddleware.js";
+import { authController } from "./routes/login/authController.js";
 
 function applyRoute(app, route) {
   if (route.isProtected) {
-    app.use(route.path, [verifyToken, route.router]);
+    app.use(route.path, [authController.verifyToken, route.router]);
   } else {
     app.use(route.path, route.router);
   }

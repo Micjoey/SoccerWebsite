@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 
 const Profile = () => {
+  const [user, setUser] = useState();
   return <h2>Welcome XXX</h2>;
 };
 
