@@ -4,7 +4,7 @@ import useFetchData from "../../GenericComponents/useFetchData";
 
 const ScheduleComponent = () => {
   const { data, loading, error } = useFetchData(
-    "http://localhost:3001/schedule",
+    "http://localhost:3001/api/schedule",
   );
 
   const columns = [

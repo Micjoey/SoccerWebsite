@@ -1,7 +1,10 @@
 import getAuthorizationHeaders from "../components/LoginFlow/authorizeJwtToken";
 
 // Create a custom fetch function that adds authorization headers
-const customFetch = async (url, options = {}) => {
+const customFetch = async (
+  url: string,
+  options: RequestInit = {},
+): Promise<Response> => {
   const headers = getAuthorizationHeaders();
 
   // Merge the headers with any additional headers provided in the options
@@ -11,12 +14,7 @@ const customFetch = async (url, options = {}) => {
   };
 
   const response = await fetch(url, options);
-
-  if (!response.ok) {
-    // Handle error responses here, if needed
-    throw new Error(`Request to ${url} failed with status ${response.status}`);
-  }
-
+  console.log(response);
   return response;
 };
 

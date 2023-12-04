@@ -4,7 +4,7 @@ import useFetchData from "../../GenericComponents/useFetchData";
 
 const RankingComponent = () => {
   const { data, loading, error } = useFetchData(
-    "http://localhost:3001/ranking",
+    "http://localhost:3001/api/ranking",
   );
 
   const columns = [

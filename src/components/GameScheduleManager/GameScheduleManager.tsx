@@ -5,7 +5,6 @@ import { formatDate } from "../../Utils/convertDate";
 import { Game } from "./types";
 import GameSchedule from "./GameSchedule/GameSchedule";
 import AddGame from "./AddGame/AddGame";
-import getAuthorizationHeaders from "../LoginFlow/authorizeJwtToken";
 import customFetch from "../../Utils/customFetch";
 
 const GameScheduleManager: React.FC = () => {
@@ -66,10 +65,8 @@ const GameScheduleManager: React.FC = () => {
     )}`;
 
     try {
-      const headers = getAuthorizationHeaders();
-      const response = await fetch("http://localhost:3001/api/games", {
+      const response = await customFetch("http://localhost:3001/api/games", {
         method: "POST",
-        headers,
         body: JSON.stringify({
           ...newGame,
           locationLink,
@@ -104,7 +101,7 @@ const GameScheduleManager: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`/games/${selectedGameId}`);
+      const response = await customFetch(`/games/${selectedGameId}`);
       if (response.ok) {
         const selectedGameData: Game = await response.json();
         const updatedFields: Partial<Game> = {
@@ -154,7 +151,7 @@ const GameScheduleManager: React.FC = () => {
 
     try {
       for (const gameId of deleteGameIds) {
-        const response = await fetch(`/games/${gameId}`, {
+        const response = await customFetch(`/games/${gameId}`, {
           method: "DELETE",
         });
         if (response.ok) {

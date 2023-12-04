@@ -1,5 +1,6 @@
 // useFetchData.js
 import { useState, useEffect } from "react";
+import customFetch from "../../Utils/customFetch";
 
 const useFetchData = (url) => {
   const [data, setData] = useState([]);
@@ -9,7 +10,7 @@ const useFetchData = (url) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(url);
+        const response = await customFetch(url);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
