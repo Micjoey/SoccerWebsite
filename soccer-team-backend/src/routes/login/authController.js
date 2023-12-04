@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { getSecret } from "../../../utils/getAwsSecret.js";
 
 const authController = {
   async login(req, res) {
@@ -8,34 +7,33 @@ const authController = {
       const { email, password } = req.body;
       const User = req.db.User; // Access the User model from req.db
 
-      console.log("Attempting to find user with email:", email);
-
       const user = await User.findOne({ where: { email } });
       if (!user) {
-        console.log("User not found.");
         return res
           .status(401)
           .json({ message: "Authentication failed. User not found." });
       }
 
-      console.log("User found:", user.toJSON());
-
       if (!bcrypt.compareSync(password, user.password)) {
-        console.log("Wrong password.");
         return res
           .status(401)
           .json({ message: "Authentication failed. Wrong password." });
       }
 
-      console.log("Password matched.");
-
-      const token = jwt.sign({ userId: user.id }, getSecret("jwt_token"), {
+      const jwt_token_key = "soccerwebapp_jwt_password";
+      const token = jwt.sign({ userId: user.id }, jwt_token_key, {
         expiresIn: "1h",
       });
 
-      console.log("Authentication successful.");
-
-      res.json({ token, user: { id: user.id, email: user.email } });
+      res.json({
+        token,
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          username: user.username,
+        },
+      });
     } catch (error) {
       console.error("Error occurred during login:", error);
       res
