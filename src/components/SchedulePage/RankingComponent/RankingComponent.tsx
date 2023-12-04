@@ -1,11 +1,31 @@
-// RankingComponent.js
+import React, { useState, useEffect } from "react";
 import GenericTableComponent from "../../GenericComponents/GenericTableComponent";
-import useFetchData from "../../GenericComponents/useFetchData";
+import customFetch from "../../../Utils/customFetch";
 
 const RankingComponent = () => {
-  const { data, loading, error } = useFetchData(
-    "http://localhost:3001/api/ranking",
-  );
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchRanking = async () => {
+      try {
+        const response = await customFetch("http://localhost:3001/api/ranking");
+        if (response.ok) {
+          const rankingData = await response.json();
+          setData(rankingData);
+          setLoading(false);
+        } else {
+          throw new Error("Failed to fetch rankings");
+        }
+      } catch (error) {
+        setError("Error fetching rankings");
+        setLoading(false);
+      }
+    };
+
+    fetchRanking();
+  }, []);
 
   const columns = [
     { header: "Team Name", accessor: "teamName" },

@@ -1,11 +1,33 @@
-// ScheduleComponent.js
+import React, { useState, useEffect } from "react";
 import GenericTableComponent from "../../GenericComponents/GenericTableComponent";
-import useFetchData from "../../GenericComponents/useFetchData";
+import customFetch from "../../../Utils/customFetch";
 
 const ScheduleComponent = () => {
-  const { data, loading, error } = useFetchData(
-    "http://localhost:3001/api/schedule",
-  );
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      try {
+        const response = await customFetch(
+          "http://localhost:3001/api/schedule",
+        );
+        if (response.ok) {
+          const scheduleData = await response.json();
+          setData(scheduleData);
+          setLoading(false);
+        } else {
+          throw new Error("Failed to fetch schedule");
+        }
+      } catch (error) {
+        setError("Error fetching schedule");
+        setLoading(false);
+      }
+    };
+
+    fetchSchedule();
+  }, []);
 
   const columns = [
     { header: "Date", accessor: "date" },
