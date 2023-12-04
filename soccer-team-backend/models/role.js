@@ -1,5 +1,6 @@
 "use strict";
 import { Model } from "sequelize";
+
 export default (sequelize, DataTypes) => {
   class Role extends Model {
     /**
@@ -10,12 +11,17 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       Role.hasMany(models.User, { foreignKey: "roleId" });
       Role.belongsToMany(models.Permission, { through: "RolePermission" });
-      // other associations...
     }
   }
   Role.init(
     {
-      roleName: DataTypes.STRING,
+      roleName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isIn: [["player", "admin", "player-admin"]],
+        },
+      },
     },
     {
       sequelize,
@@ -23,5 +29,6 @@ export default (sequelize, DataTypes) => {
       timestamps: true,
     },
   );
+
   return Role;
 };

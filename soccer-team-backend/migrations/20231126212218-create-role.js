@@ -10,6 +10,10 @@ export async function up(queryInterface, Sequelize) {
     },
     roleName: {
       type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        isIn: [["player", "admin", "player-admin"]],
+      },
     },
     createdAt: {
       allowNull: false,
@@ -23,6 +27,7 @@ export async function up(queryInterface, Sequelize) {
     },
   });
 }
+
 export async function down(queryInterface, Sequelize) {
   await queryInterface.dropTable("Roles");
 }
