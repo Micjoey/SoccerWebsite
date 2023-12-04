@@ -34,9 +34,12 @@ const SignUpScreen = () => {
       console.log("Form submitted successfully:", result);
 
       sessionStorage.setItem("authToken", result.token);
-      sessionStorage.setItem("userInfo", userData);
 
-      // Additional logic after successful signup (e.g., redirecting the user)
+      // Serialize the user object to JSON and store it in localStorage
+      localStorage.setItem("userInfo", JSON.stringify(user));
+
+      // Redirect to the profile page using navigate
+      window.location = "/profile";
     } catch (error) {
       console.error("Form submission error:", error.message);
       // Handle errors (e.g., show an error message to the user)

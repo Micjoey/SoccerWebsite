@@ -2,7 +2,9 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 const Profile = () => {
-  const userInfo = sessionStorage.getItem("userInfo");
+  const userInfoJSON = localStorage.getItem("userInfo"); // Retrieve the JSON string from localStorage
+  const userInfo = JSON.parse(userInfoJSON); // Parse the JSON string into an object
+
   return (
     <Container>
       <Row>

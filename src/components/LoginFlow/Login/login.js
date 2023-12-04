@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link } from "react-router-dom";
 import "./login.scss";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // Use the useNavigate hook
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,10 +21,12 @@ const LoginScreen = () => {
         const data = await response.json();
         const { token, user } = data;
         sessionStorage.setItem("authToken", token);
-        sessionStorage.setItem("userInfo", user);
+
+        // Serialize the user object to JSON and store it in localStorage
+        localStorage.setItem("userInfo", JSON.stringify(user));
 
         // Redirect to the profile page using navigate
-        navigate("/profile");
+        window.location = "/profile";
       } else {
         console.error("Authentication failed");
       }
