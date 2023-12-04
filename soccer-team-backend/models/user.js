@@ -16,6 +16,7 @@ export default (sequelize, DataTypes) => {
   User.init(
     {
       username: DataTypes.STRING,
+      name: DataTypes.STRING,
       password: DataTypes.STRING,
       email: {
         type: DataTypes.STRING,
@@ -24,7 +25,6 @@ export default (sequelize, DataTypes) => {
       phone: DataTypes.STRING,
       contactPreference: DataTypes.ENUM("email", "phone"),
       role: DataTypes.STRING,
-      name: DataTypes.STRING,
       position: DataTypes.STRING,
     },
     {

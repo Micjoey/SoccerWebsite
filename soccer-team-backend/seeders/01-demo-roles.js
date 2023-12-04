@@ -5,12 +5,17 @@ export async function up(queryInterface, Sequelize) {
     "Roles",
     [
       {
-        roleName: "Admin",
+        roleName: "admin", // Changed to lowercase to match model validation
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        roleName: "Player",
+        roleName: "player", // Changed to lowercase to match model validation
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        roleName: "player-admin", // Added to reflect the third valid role option
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -18,6 +23,10 @@ export async function up(queryInterface, Sequelize) {
     {},
   );
 }
+
 export async function down(queryInterface, Sequelize) {
-  await queryInterface.bulkDelete("Roles", null, {});
+  // In the down migration, we want to remove only the entries we've added
+  await queryInterface.bulkDelete("Roles", {
+    roleName: ["admin", "player", "player-admin"],
+  });
 }
