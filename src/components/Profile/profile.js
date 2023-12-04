@@ -1,10 +1,8 @@
 import React from "react";
-import { useUser } from "./UserContext"; // Import the useUser hook
 import { Container, Row, Col } from "react-bootstrap";
 
 const Profile = () => {
-  const { userInfo } = useUser(); // Use the useUser hook to access user data
-  console.log(userInfo);
+  const userInfo = sessionStorage.getItem("userInfo");
   return (
     <Container>
       <Row>

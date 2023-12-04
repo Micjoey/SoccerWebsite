@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import "./login.scss";
-import { useUser } from "../../Profile/UserContext.js";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setUserInfo } = useUser();
   const navigate = useNavigate(); // Use the useNavigate hook
 
   const handleSubmit = async (e) => {
@@ -24,9 +22,7 @@ const LoginScreen = () => {
         const data = await response.json();
         const { token, user } = data;
         sessionStorage.setItem("authToken", token);
-
-        // Set the user data in the context
-        setUserInfo(user);
+        sessionStorage.setItem("userInfo", user);
 
         // Redirect to the profile page using navigate
         navigate("/profile");
