@@ -13,6 +13,15 @@ const customFetch = async (
   };
 
   const response = await fetch(url, options);
+
+  if (response.status === 401) {
+    // Clear the authToken from sessionStorage
+    sessionStorage.removeItem("authToken");
+
+    // Redirect the user to the login screen
+    window.location.href = "/login";
+  }
+
   return response;
 };
 
