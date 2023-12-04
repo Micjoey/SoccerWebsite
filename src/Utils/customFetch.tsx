@@ -6,7 +6,6 @@ const customFetch = async (
   options: RequestInit = {},
 ): Promise<Response> => {
   const headers = getAuthorizationHeaders();
-
   // Merge the headers with any additional headers provided in the options
   options.headers = {
     ...headers,
@@ -14,7 +13,6 @@ const customFetch = async (
   };
 
   const response = await fetch(url, options);
-  console.log(response);
   return response;
 };
 

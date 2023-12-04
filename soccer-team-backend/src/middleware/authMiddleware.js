@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { JWT_TOKEN_KEY } from "../routes/login/authController";
+import { JWT_TOKEN_KEY } from "../routes/login/authController.js";
 
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization; // Assuming the token is sent in the "Authorization" header
@@ -9,8 +9,7 @@ const verifyToken = (req, res, next) => {
       .status(401)
       .json({ message: "Authentication failed. Token not provided." });
   }
-
-  jwt.verify(token, JWT_TOKEN_KEY, (err, decoded) => {
+  jwt.verify(token.split(" ")[1], JWT_TOKEN_KEY, (err, decoded) => {
     if (err) {
       return res
         .status(401)
